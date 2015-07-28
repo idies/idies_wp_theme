@@ -9,7 +9,6 @@
 	$slide_class = 'item active'; 
 	foreach( get_cfc_meta( 'splash_slideshow' ) as $key => $value ) : ?>
 		<div class="<?php echo $slide_class; ?>">
-		<!--img src="<?php the_cfc_field( 'splash_slideshow','background-image', false, $key ); ?>" width="100%" height="auto" /-->
 		 <div style="background:url(<?php the_cfc_field( 'splash_slideshow','background-image', false, $key ); ?>) center center; 
           background-size:cover;" class="slider-size">
 		  <div class="intro-message container">
