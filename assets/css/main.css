@@ -9668,8 +9668,37 @@ body div.universe div.carousel-inner div.carousel-caption.carousel-caption-light
 /* ================================================
    Agenda table formatting
    ================================================ */
+body.page main.main table.idies-agenda {
+  cell-padding: 0;
+}
+body.page main.main table.idies-agenda tr:nth-child(odd) {
+  background-color: #bfd4e7;
+}
+body.page main.main table.idies-agenda tr:nth-child(even) {
+  background-color: #ffffff;
+}
 body.page main.main table.idies-agenda td:nth-child(1) {
-  color: red;
+  background-color: #3d6f9d;
+  color: white;
+  text-align: center;
+}
+body.page main.main table.idies-agenda td {
+  border: 0;
+}
+body.page main.main table.idies-agenda span.idies-break {
+  font-weight: bold;
+}
+body.page main.main table.idies-agenda span.idies-title {
+  font-weight: bold;
+  font-style: italic;
+}
+body.page main.main table.idies-agenda span.idies-keynote {
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 1.2em;
+}
+body.page main.main table.idies-agenda span.idies-speaker {
+  font-weight: bold;
 }
 /* ================================================
    Archive
@@ -9762,24 +9791,27 @@ body.page main.main table.idies-agenda td:nth-child(1) {
   margin-top: 2px;
   margin-left: 0;
 }
-.idies-menu li > a {
+.idies-menu li > a,
+.idies-menu li.active.active-parent > a {
   background-color: transparent;
   border-left: solid 2px transparent;
   color: #333333;
 }
 .idies-menu li > a:hover,
-.idies-menu li > a:focus {
+.idies-menu li.active.active-parent > a:hover,
+.idies-menu li > a:focus,
+.idies-menu li.active.active-parent > a:focus {
   background-color: transparent;
   color: #36628b;
   font-weight: 600;
 }
-.idies-menu li.active > a {
+.idies-menu li.active:not(.active-parent) > a {
   background-color: transparent;
   border-left: solid 2px #5189bc;
   color: #5189bc;
 }
-.idies-menu li.active > a:hover,
-.idies-menu li.active > a:focus {
+.idies-menu li.active:not(.active-parent) > a:hover,
+.idies-menu li.active:not(.active-parent) > a:focus {
   background-color: transparent;
   color: #36628b;
   font-weight: 500;
@@ -9943,24 +9975,27 @@ body.page main.main table.idies-agenda td:nth-child(1) {
   margin-top: 2px;
   margin-left: 0;
 }
-.sidebar section.widget ul.menu li > a {
+.sidebar section.widget ul.menu li > a,
+.sidebar section.widget ul.menu li.active.active-parent > a {
   background-color: transparent;
   border-left: solid 2px transparent;
   color: #333333;
 }
 .sidebar section.widget ul.menu li > a:hover,
-.sidebar section.widget ul.menu li > a:focus {
+.sidebar section.widget ul.menu li.active.active-parent > a:hover,
+.sidebar section.widget ul.menu li > a:focus,
+.sidebar section.widget ul.menu li.active.active-parent > a:focus {
   background-color: transparent;
   color: #36628b;
   font-weight: 600;
 }
-.sidebar section.widget ul.menu li.active > a {
+.sidebar section.widget ul.menu li.active:not(.active-parent) > a {
   background-color: transparent;
   border-left: solid 2px #5189bc;
   color: #5189bc;
 }
-.sidebar section.widget ul.menu li.active > a:hover,
-.sidebar section.widget ul.menu li.active > a:focus {
+.sidebar section.widget ul.menu li.active:not(.active-parent) > a:hover,
+.sidebar section.widget ul.menu li.active:not(.active-parent) > a:focus {
   background-color: transparent;
   color: #36628b;
   font-weight: 500;
