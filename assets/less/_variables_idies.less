@@ -580,7 +580,29 @@ body.page main.main {
 	.nav;
 	.nav-pills;
 	.nav-stacked;
-	li>a {
+	li>a, li.active.active-parent>a {
+		background-color:	transparent;
+		border-left:		solid 2px transparent;
+		color:				@text-color;
+		&:hover, &:focus {
+			background-color:	transparent;
+			color:				@link-hover-color;
+			font-weight: 		600;
+		}
+	}
+	li.active:not(.active-parent) {
+		>a {
+			background-color:	transparent;
+			border-left:		solid 2px @brand-primary;
+			color:				@link-color;
+			&:hover, &:focus {
+				background-color:	transparent;
+				color:				@link-hover-color;
+				font-weight: 		500;
+			}
+		}
+	}
+/*	li>a {
 		background-color:	transparent;
 		border-left:		solid 2px transparent;
 		color:				@text-color;
@@ -601,6 +623,7 @@ body.page main.main {
 		color:				@link-hover-color;
 		font-weight: 		500;
 	}
+*/
 }
 .idies-sub-menu {
 	.nav;

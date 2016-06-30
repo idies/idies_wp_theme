@@ -25,7 +25,7 @@ endforeach; ?>
   <div class="alert alert-warning">
     <?php _e('Sorry, no upcoming events found at this time.', 'roots'); ?>
   </div>
-<?php 	return; ?>
+<?php 	//return; ?>
 <?php endif; ?>
 <?php $past = 0; ?>
 <h2>Past Events</h2>
@@ -41,6 +41,6 @@ endforeach; ?>
   <div class="alert alert-warning">
     <?php _e('Sorry, no past events found.', 'roots'); ?>
   </div>
-<?php 	return; ?>
+<?php 	//return; ?>
 <?php endif; ?>
 
