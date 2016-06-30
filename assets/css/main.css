@@ -8122,9 +8122,15 @@ body.home section.splash-explore div.sidebar-explore:hover {
 /* ================================================
    Body
    ================================================ */
+body.page div.page-header {
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
 body.page div.page-header h1,
 body.page div.page-header .h1 {
-  font-size: 4em;
+  font-size: 36px;
+  margin-top: 10px;
+  margin-bottom: 5px;
 }
 body.page h1,
 body.page .h1 {
@@ -9834,7 +9840,7 @@ li[data-toggle="drilldown"].off {
 @media (max-width: 991px) {
   body.home div.page-header h1,
   body.home div.page-header .h1 {
-    font-size: 2em;
+    font-size: 18px;
   }
   .navbar-default .navbar-nav .open .dropdown-menu > li > a {
     color: #ffffff;
@@ -9843,7 +9849,7 @@ li[data-toggle="drilldown"].off {
 @media (max-width: 1199px) {
   body.home div.page-header h1,
   body.home div.page-header .h1 {
-    font-size: 3em;
+    font-size: 27px;
   }
   .navbar-nav > li > a {
     padding: 15px 8px;
