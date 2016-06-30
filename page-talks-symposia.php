@@ -3,8 +3,8 @@
 $args = array(
 	'posts_per_page'   => -1,
 	'offset'   => 0,
-	'orderby'          => 'title',
-	'order'            => 'ASC',
+	'orderby'          => 'date',
+	'order'            => 'DESC',
 	'post_type'        => 'events',
 	'post_status'      => 'publish',
 );
