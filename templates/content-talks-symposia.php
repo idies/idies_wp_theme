@@ -29,11 +29,16 @@
 			'';
 	endif;
 	
-	echo '<i class="fa fa-map"></i><strong>' . $location . '</strong><br />';
-	echo '<i class="fa fa-calendar"></i><strong>' . $event_date . '</strong><br />';
-	if ( get_cfc_field( 'events-details' , 'genomics' ) ) :
-		echo '<i class="fa fa-at"></i><strong> A Genomics@JHU Seminar</strong><br />';
+	echo '<ul class="fa-ul">';
+	echo '<li><i class="fa-li fa fa-map"></i><strong>' . $location . '</strong></li>';
+	echo '<li><i class="fa-li fa fa-calendar"></i><strong>' . $event_date . '</strong></li>';
+	if ( $speaker = get_cfc_field( 'events-details' , 'speaker' ) ) :
+		echo "<li><i class='fa-li fa fa-microphone'></i><strong>$speaker</strong></li>";
 	endif;
+	if ( get_cfc_field( 'events-details' , 'genomics' ) ) :
+		echo '<li><i class="fa-li fa fa-at"></i><strong> A Genomics@JHU Seminar</strong></li>';
+	endif;
+	echo '</ul>';
 ?>
 <?php the_excerpt(); ?></div>
   </div>
