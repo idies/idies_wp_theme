@@ -16,9 +16,11 @@
 	$event_date .= ( $begin_date = new DateTime( get_cfc_field( 'events-details' , 'event-date' ) ) ) ?
 		 $begin_date->format('F d, Y') :
 		'TBD';
-	$event_date .= ( $end_date = new DateTime( get_cfc_field( 'events-details' , 'event-end-date' ) ) ) ?
-		 ' to ' . $end_date->format('F d, Y') :
-		'';
+	if ( get_cfc_field( 'events-details' , 'event-end-date' ) ) {
+		$event_date .= ( $end_date = new DateTime( get_cfc_field( 'events-details' , 'event-end-date' ) ) ) ?
+			 ' to ' . $end_date->format('F d, Y') :
+			'';
+	}
 	
 	if ( $show_times = get_cfc_field( 'events-details' , 'show-times' ) ) :
 		$event_date .= ( $start_time = get_cfc_field( 'events-details' , 'start-time' ) ) ?
