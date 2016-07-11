@@ -136,6 +136,9 @@ function idies_add_query_vars_filter( $vars ){
   $vars[] = "idies-affil-pane";
   $vars[] = "idies-affil-order";
   
+  $vars[] = "idies-year";
+  $vars[] = "idies-type";
+  
   return $vars;
 }
 add_filter( 'query_vars', 'idies_add_query_vars_filter' );
