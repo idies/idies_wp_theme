@@ -4,8 +4,8 @@
 	if (locate_template('templates/pre-header.php') != '') {
 		get_template_part('templates/pre-header');
 	}
-	do_action('get_header' , $IDIES_Web->header_file);
-    get_template_part('templates/'.$IDIES_Web->header_file);
+	do_action('get_header' , 'header');
+    get_template_part('templates/header');
   ?>
   <div class="wrap container-fluid" role="document">
     <div class="content row">
@@ -13,14 +13,10 @@
 		<?php include roots_template_path(); ?>
       </main><!-- /.main -->
     </div><!-- /.content -->
-  </div><!-- /.wrap -->
-
-  
+  </div><!-- /.wrap -->  
 <?php
-	get_template_part('templates/'.$IDIES_Web->footer_file); 
+	get_template_part('templates/footer'); 
+	wp_footer(); 
 ?>
-
-  <?php wp_footer(); ?>
-
 </body>
 </html>

@@ -11,9 +11,7 @@
  */
 $roots_includes = array(
   'lib/utils.php',           // Utility functions
-  'lib/website_select.php',  // Sets Class to control website options (IDIES, SDSS, SciServer, Etc)
   'lib/init.php',            // Initial theme setup and constants
-  'lib/idies_init.php',		 // IDIES initialization tasks //
   'lib/wrapper.php',         // Theme wrapper class
   'lib/sidebar.php',         // Sidebar class
   'lib/config.php',          // Configuration
@@ -23,8 +21,9 @@ $roots_includes = array(
   'lib/gallery.php',         // Custom [gallery] modifications
   'lib/scripts.php',         // Scripts and stylesheets
   'lib/extras.php',          // Custom functions
-  'lib/idies_widgets.php',	 // IDIES widgets //
-  'lib/idies_custom.php',	 // IDIES configuration tasks //
+  'lib/widgets.php',	 // IDIES widgets //
+  'lib/custom.php',	 // IDIES configuration tasks //
+  'lib/presentations.php',	 // IDIES configuration tasks //
 );
 
 foreach ($roots_includes as $file) {

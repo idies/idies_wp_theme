@@ -1,7 +1,7 @@
 <?php
 global $post;
 
-//if it has a special template, show that
+//if page has a special template, show that
 if (locate_template('page-' . $post->post_name . '.php') != '') {
 	get_template_part('page', $post->post_name);
 	

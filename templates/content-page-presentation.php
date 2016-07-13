@@ -1,27 +1,36 @@
 <?php
 /* 
- * Show archive of all symposium presentations. 
+ * Show page content then the archive of symposium presentations. 
  */ 
 ?>
-<?php //Get Query vars from URL 
+<?php 
+while (have_posts()) : the_post(); 
+	the_content(); 
+endwhile; 
+
 $thisYear = get_query_var( 'idies-year' , 2016 );
 $thisType = get_query_var( 'idies-type' , 'agenda' );
-?>
-<?php 	
+
 if ( !check_wck() ) return;
 
-$allPresentations=array();
-while (have_posts()) : the_post(); 	
+// Get the presentations custom post type
+$args = array( 'post_type' => 'presentation', 
+			   'posts_per_page' => -1, 
+			   'post_status' => 'publish');
+$pposts = get_posts( $args );
+//idies_debug( $pposts );
 
+$allPresentations=array();
+
+foreach ( $pposts as $post ) :
+ 
+	setup_postdata( $post ); 
+	
 	//$result = get_the_presentation( $thisYear );
 	if ($result  = get_the_presentation( $thisYear ) ) $allPresentations[] = $result;
 
-endwhile; 
+endforeach;
 
-if ( empty( $allPresentations ) ) {
-	echo "<div class='alert alert-warning'>Sorry, the Symposium is not quite ready for prime time. Please check back soon.</div> ";
-	$return;
-}
 
 switch ( $thisType ) {
 	case 'posters':
@@ -39,3 +48,5 @@ switch ( $thisType ) {
 		show_posters( $allPresentations , false );
 }
 
+wp_reset_postdata(); 
+?>
