@@ -26,8 +26,8 @@
 		$event_date .= ( $start_time = get_cfc_field( 'events-details' , 'start-time' ) ) ?
 			', ' . $start_time :
 			'';
-		$event_date .= ( $end_time = get_cfc_field( 'events-details' , 'end-time' ) ) ?
-			' - ' . $end_time :
+//		$event_date .= ( $end_time = get_cfc_field( 'events-details' , 'end-time' ) ) ?
+//			' - ' . $end_time :
 			'';
 	endif;
 	
