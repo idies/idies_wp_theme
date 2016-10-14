@@ -63,7 +63,8 @@ function show_bios( $allPresentations ) {
 	$result = "";
 
 	foreach ( $allPresentations as $thisPresentation ) :
-		if  ( in_array( $thisPresentation[ 'type' ] , array( 'Poster' , 'Other' , 'Short Talk' ) ) ) continue;
+		//if  ( in_array( $thisPresentation[ 'type' ] , array( 'Poster' , 'Other' , 'Short Talk' ) ) ) continue;
+		if  ( in_array( $thisPresentation[ 'type' ] , array( 'Poster' , 'Other' ) ) ) continue;
 		
 		$result .= "<div class='talk-speakers'>";
 		
