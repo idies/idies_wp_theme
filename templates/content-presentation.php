@@ -1,6 +1,7 @@
 <?php
 /* 
  * Show archive of all symposium presentations. 
+ * This is a template for an archive.
  */ 
 ?>
 <?php //Get Query vars from URL 
@@ -11,16 +12,19 @@ $thisType = get_query_var( 'idies-type' , 'agenda' );
 if ( !check_wck() ) return;
 
 $allPresentations=array();
+$i=0;
 while (have_posts()) : the_post(); 	
 
+	echo "<!-- " . ++$i . " -->\n";
 	//$result = get_the_presentation( $thisYear );
 	if ($result  = get_the_presentation( $thisYear ) ) $allPresentations[] = $result;
 
 endwhile; 
+echo "<!-- " . count( $allPresentations ) . " -->";
 
 if ( empty( $allPresentations ) ) {
-	echo "<div class='alert alert-warning'>Sorry, the Symposium is not quite ready for prime time. Please check back soon.</div> ";
-	$return;
+	echo "<span class='label label-warning'>No Presentations found for $thisYear</span><br>";
+	return;
 }
 
 switch ( $thisType ) {

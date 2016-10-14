@@ -83,6 +83,20 @@ function idies_setup() {
 }
 
 /*
+ * Change number of posts shown on Custom Post Types
+*/
+function idies_pagesize( $query ) {
+    if ( is_admin() || ! $query->is_main_query() )
+        return;
+
+    if ( is_post_type_archive( 'presentation' ) ) {
+        $query->set( 'posts_per_page', -1 );
+        return;
+    }
+}
+add_action( 'pre_get_posts', 'idies_pagesize', 1 );
+
+/*
  * Add IDIES Roots Theme Option Page.
 */
 add_action('admin_menu', 'idies_theme_menu');

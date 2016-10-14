@@ -66,5 +66,5 @@ while (have_posts()) : the_post(); ?>
 <ul class="breadcrumb">
 	<li><a href="<?php echo home_url(); ?>">IDIES</a></li>
 	<li><a href="<?php echo home_url(); ?>/symposium/">Symposium</a></li>
-	<li><a href="<?php echo home_url(); ?>/<?php the_cfc_field( 'presentation-details' , 'year' ); ?>-annual-symposium/"><?php the_cfc_field( 'presentation-details' , 'year' ); ?> Annual Symposium</a></li>
+	<li><a href="<?php echo home_url(); ?>/symposium/<?php the_cfc_field( 'presentation-details' , 'year' ); ?>-annual-symposium/"><?php the_cfc_field( 'presentation-details' , 'year' ); ?> Annual Symposium</a></li>
 </ul>

@@ -12,7 +12,10 @@ function get_the_presentation( $thisYear ) {
 	$thisPresentation = get_cfc_meta( 'presentation-details' );
 	
 	//Get only the data we need for posters or talks, get all for agenda.
-	if ( !( $thisYear === $thisPresentation[0]['year'] ) ) return; 
+	if ( !( $thisYear === $thisPresentation[0]['year'] ) ) {
+		echo "<!-- skipping " . get_the_title() . "-->";
+		return; 
+	}
 
 	//grab all the data for parsing
 	$thisPresentation[0]['the_title'] = get_the_title();
@@ -44,7 +47,7 @@ function show_posters( $allPresentations , $excerpt=true ) {
 	endforeach ;
 
 	if (empty( $result ) ) {
-		$result = "<span class='label label-warning'>No posters found. Check back soon!</span>";
+		$result = "<span class='label label-warning'>No posters found. </span><br>";
 	} else {
 		$result = ( $excerpt ) ? "<h2><small>Poster Abstracts</small></h2>" . $result : "<h2><small>Poster Session</small></h2>" . $result ;
 	}
@@ -93,7 +96,7 @@ function show_bios( $allPresentations ) {
 	endforeach ;
 	
 	if ( empty( $result ) ) {
-		$result = "<span class='label label-warning'>No posters found. Check back soon!</span>";
+		$result = "<span class='label label-warning'>No posters found. </span><br>";
 	}
 	echo $result;
 	return;
@@ -106,9 +109,7 @@ function show_talks( $allPresentations , $excerpt=true ) {
 	// Sort and display presentations by Title
 	uasort( $allPresentations , 'sort_pres_by_title' );
 	$result = "";
-?>
-	<h2><small>Talk Abstracts</small></h2>
-<?php
+
 	foreach ( $allPresentations as $thisPresentation ) :
 		if  ( in_array( $thisPresentation[ 'type' ] , array( 'Poster' , 'Other' ) ) ) continue;
 		
@@ -127,7 +128,7 @@ function show_talks( $allPresentations , $excerpt=true ) {
 	endforeach ;
 
 	if ( empty( $result ) ) {
-		$result = "<span class='label label-warning'>No talks found. Check back soon!</span>";
+		$result = "<span class='label label-warning'>No talks found.</span><br>";
 	} else {
 		$result = "<h2><small>Talk Abstracts</small></h2>" . $result ;
 	}
@@ -147,7 +148,7 @@ function show_agenda( $allPresentations ) {
 		$count++;
 	endforeach;
 	if ( $count == 0 ) {
-		echo "<span class='label label-warning'>No agenda found. Check back soon!</span>";
+		echo "<span class='label label-warning'>No agenda found.</span><br>";
 		return;
 	}	
 
@@ -172,7 +173,8 @@ function show_agenda( $allPresentations ) {
 		echo "";		
 		switch ($thisPresentation['type']) {
 			case ("Other") :
-				echo "<span class='idies-break'>" . $thisPresentation['the_title'] . "</span>";
+				echo "<span class='idies-break'>" . $thisPresentation['the_title'] . "</span><br>";
+				echo "<span class='idies-affiliation'>" . $thisPresentation['abstract'] . "</span>";
 			break;
 			case ("Keynote") :
 				echo "<span class='idies-keynote'>Keynote Speaker</span><br>";
