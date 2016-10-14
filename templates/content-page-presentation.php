@@ -1,11 +1,13 @@
 <?php
 /* 
- * Show page content then the archive of symposium presentations. 
+ * Show the page content then the archive of symposium presentations. 
+ * This is a template for a page.
  */ 
 ?>
 <?php 
 while (have_posts()) : the_post(); 
 	the_content(); 
+	echo "<!-- Showing content -->";
 endwhile; 
 
 $thisYear = get_query_var( 'idies-year' , 2016 );
@@ -18,15 +20,12 @@ $args = array( 'post_type' => 'presentation',
 			   'posts_per_page' => -1, 
 			   'post_status' => 'publish');
 $pposts = get_posts( $args );
-//idies_debug( $pposts );
 
 $allPresentations=array();
 
 foreach ( $pposts as $post ) :
  
 	setup_postdata( $post ); 
-	
-	//$result = get_the_presentation( $thisYear );
 	if ($result  = get_the_presentation( $thisYear ) ) $allPresentations[] = $result;
 
 endforeach;
