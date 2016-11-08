@@ -11,13 +11,17 @@ $args = array(
 $posts_array = get_posts( $args );
 $upcoming = 0;
 $today = new DateTime();
+//<h2>Upcoming Events</h2>
 ?>
-<h2>Upcoming Events</h2>
 <?php foreach ( $posts_array as $post ) : 
 	setup_postdata( $post ); 	
 	//it's ok not to have a date, but if it has a date that is past, skip it an show it under Past Events.
-	if ( $event_date = new DateTime( get_cfc_field( 'events-details' , 'event-date' ) ) ) 
+	//$the_date = get_cfc_field( 'events-details' , 'event-end-date' );
+	if ( $event_date = new DateTime( get_cfc_field( 'events-details' , 'event-end-date' ) ) ) {
 		if ($event_date < $today) continue;
+	} elseif ( $event_date = new DateTime( get_cfc_field( 'events-details' , 'event-date' ) ) ) {
+		if ($event_date < $today) continue;
+	}
 	$upcoming++; 	
 	get_template_part('templates/content', 'talks-symposia'); 
 endforeach; ?>
@@ -28,6 +32,7 @@ endforeach; ?>
 <?php 	//return; ?>
 <?php endif; ?>
 <?php $past = 0; ?>
+<?php return; ?>
 <h2>Past Events</h2>
 <?php foreach ( $posts_array as $post ) : 
 	setup_postdata( $post ); 	

@@ -2320,7 +2320,13 @@
 			e.preventDefault()
 			$(this).tab('show')
 		});
-	})
+
+		//Set up UStream viewer object
+		var viewer = UstreamEmbed('UstreamIframe');
+		console.log(viewer);
+		viewer.callMethod('play');
+
+})
 }(jQuery);
 ;;/* ========================================================================
  * DOM-based Routing

@@ -33,16 +33,19 @@ function show_posters( $allPresentations , $excerpt=true ) {
 
 	// Sort and display posters by Title
 	uasort( $allPresentations , 'sort_pres_by_title' );
+	$thisposter = 0;
 	$result = "";
 	
 	foreach ( $allPresentations as $thisPresentation ) :
-		if  ( 'Poster' !== $thisPresentation['type'] ) continue; 	
+		if  ( 'Poster' !== $thisPresentation['type'] ) continue;
+		$thisposter++;
 		$result .= "<div class='poster-abstracts'>";
-		$result .= "<h3><small><a href='" . $thisPresentation['permalink'] . "'>" . 
+		$result .= "<h3><small>Poster #"."$thisposter: <a href='" . $thisPresentation['permalink'] . "'>" . 
 			$thisPresentation['the_title'] . "</a></small></h3>";
 		$result .= "<strong>" . $thisPresentation['all-authors'] . "</strong>, <em>" . 
 			$thisPresentation['all-affiliations'] . "</em><br>";
 		$result .= ( $excerpt ) ? $thisPresentation['excerpt'] : '';
+		//$result .= ( $excerpt ) ? $thisPresentation['abstract'] : '';
 		$result .= "</div>";
 	endforeach ;
 
