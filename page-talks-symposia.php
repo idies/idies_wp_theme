@@ -17,7 +17,7 @@ $today = new DateTime();
 	setup_postdata( $post ); 	
 	//it's ok not to have a date, but if it has a date that is past, skip it an show it under Past Events.
 	if ( $event_date = new DateTime( get_cfc_field( 'events-details' , 'event-date' ) ) ) 
-		if ($event_date < $today) continue;
+		if ($event_date <= $today) continue;
 	$upcoming++; 	
 	get_template_part('templates/content', 'talks-symposia'); 
 endforeach; ?>

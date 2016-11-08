@@ -28,6 +28,9 @@
 			e.preventDefault()
 			$(this).tab('show')
 		});
+		
+		//Set up UStream viewer object
+		var viewer = UstreamEmbed('UstreamIframe');
 	})
 }(jQuery);
 ;
