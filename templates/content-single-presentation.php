@@ -11,13 +11,23 @@ while (have_posts()) : the_post(); ?>
 <div class="row">
 <div class="col-xs-12">
 <?php
+	$subtitle='';
 	switch ( get_cfc_field( 'presentation-details' , 'type' ) ) {
-		case "Keynote Speaker":
-			$subtitle = "KEYNOTE SPEAKER";
+		case "Keynote":
+			$subtitle = "Keynote Speaker";
+			$view = "Slides";
+			$back = "talk";
+			break;
 		case "Seed Fund Update": 
 			$subtitle =  "Seed Fund Update";
+			$view = "Slides";
+			$back = "talk";
+			break;
 		case "Invited": 
 			$subtitle =  "Talk";
+			$view = "Slides";
+			$back = "talk";
+			break;
 		case "Seed Talk": 
 			$subtitle =  "Talk";
 			$view = "Slides";
@@ -28,6 +38,10 @@ while (have_posts()) : the_post(); ?>
 			$view = "Poster";
 			$back = "poster";
 			break;
+		default:
+			$subtitle = "";
+			$view = "";
+			$back = "";
 	}
 	
 	echo "<p><strong>";
