@@ -30,9 +30,18 @@
 		});
 
 		//Set up UStream viewer object
-		var viewer = UstreamEmbed('UstreamIframe');
-		//console.log(viewer);
-		viewer.callMethod('play');
+		if ( $( "#UstreamIframe").length ) {
+			var viewer = UstreamEmbed('UstreamIframe');
+			viewer.callMethod('low');
+			viewer.callMethod('play');
+			if ( $( "#UstreamIframe" ).data( "seek" ) !== undefined ) {
+				//var gotosecond = $( "#UstreamIframe" ).data( "seek" );
+				var gotosecond = 600
+				console.log("Seeking " + gotosecond );
+				viewer.callMethod('seek', gotosecond );
+			}
+		}
+		
 
 })
 }(jQuery);
