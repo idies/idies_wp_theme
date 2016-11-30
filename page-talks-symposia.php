@@ -9,43 +9,38 @@ $args = array(
 	'post_status'      => 'publish',
 );
 $posts_array = get_posts( $args );
-$upcoming = 0;
+$upcoming = array();
+$past = array();
 $today = new DateTime();
-//<h2>Upcoming Events</h2>
 ?>
 <?php foreach ( $posts_array as $post ) : 
 	setup_postdata( $post ); 	
 	//it's ok not to have a date, but if it has a date that is past, skip it an show it under Past Events.
-	//$the_date = get_cfc_field( 'events-details' , 'event-end-date' );
-	if ( $event_date = new DateTime( get_cfc_field( 'events-details' , 'event-end-date' ) ) ) {
-		if ($event_date < $today) continue;
-	} elseif ( $event_date = new DateTime( get_cfc_field( 'events-details' , 'event-date' ) ) ) {
-		if ($event_date < $today) continue;
+	$multiday = ( strcmp( "Yes" , get_cfc_field( 'events-details' , 'multi-day-event' ) ) === 0 ) ;
+	$start_date = new DateTime( get_cfc_field( 'events-details' , 'event-date' ) );
+	$end_date = new DateTime( get_cfc_field( 'events-details' , 'event-end-date' ) );
+	if ( ( $multiday && ( $end_date >= $today ) ) ||  ( $start_date >= $today ) ) {
+		array_push( $upcoming , $post );
+	} else {
+		array_push( $past , $post );
 	}
-	$upcoming++; 	
-	get_template_part('templates/content', 'talks-symposia'); 
-endforeach; ?>
-<?php if (!$upcoming) : ?>
-  <div class="alert alert-warning">
-    <?php _e('Sorry, no upcoming events found at this time.', 'roots'); ?>
-  </div>
-<?php 	//return; ?>
-<?php endif; ?>
-<?php $past = 0; ?>
-<?php return; ?>
-<h2>Past Events</h2>
-<?php foreach ( $posts_array as $post ) : 
-	setup_postdata( $post ); 	
-	//it's ok not to have a date, but if it has a date that is past, skip it an show it under Past Events.
-	if ( $event_date = new DateTime( get_cfc_field( 'events-details' , 'event-date' ) ) ) 
-		if ($event_date >= $today) continue;
-	$past++; 	
-	get_template_part('templates/content', 'talks-symposia'); 
-endforeach; ?>
-<?php if (!$past) : ?>
-  <div class="alert alert-warning">
-    <?php _e('Sorry, no past events found.', 'roots'); ?>
-  </div>
-<?php 	//return; ?>
-<?php endif; ?>
+endforeach; 
+if ( count( $upcoming ) ) : 
+	?><h2>Upcoming Events</h2><?php 
+	foreach ( $upcoming as $post ) : 
+		setup_postdata( $post );
+		get_template_part('templates/content', 'talks-symposia'); 
+	endforeach;
+else : 
+	?><div class="alert alert-warning">No upcoming events found.</div><?php 
+endif;
+if ( count( $past ) ) : 
+	?><h2>Past Events</h2><?php 
+	foreach ( $past as $post ) : 
+		setup_postdata( $post );
+		get_template_part('templates/content', 'talks-symposia'); 
+	endforeach;
+else : 
+	?><div class="alert alert-warning">No past events found.</div><?php 
+endif;
 
