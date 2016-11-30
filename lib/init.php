@@ -253,3 +253,21 @@ function idies_alphabetical( $orderby )
   return $orderby;
 }
 add_filter('posts_orderby', 'idies_alphabetical' );
+
+/**
+ * Add Custom Post Types to Search
+ */
+//add_filter( 'pre_get_posts', 'idies_cpt_search' );
+/**
+ * This function modifies the main WordPress query to include an array of 
+ * post types instead of the default 'post' post type.
+ *
+ * @param object $query  The original query.
+ * @return object $query The amended query.
+ */
+function idies_cpt_search( $query ) {
+    if ( $query->is_search ) {
+	$query->set( 'post_type', array( 'post', 'affiliate' , 'knowledgebase' ) );
+    }
+    return $query;   
+}

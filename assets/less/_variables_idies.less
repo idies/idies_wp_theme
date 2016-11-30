@@ -509,6 +509,39 @@ body.page aside section.widget.widget_ninja_forms_widget {
 	.well;
 	.well-sm;
 }
+body.archive aside section.widget {
+	.bigger;
+	h3 {
+		margin-top:0;
+	}
+	&.widget_categories {
+		.alert;
+		.alert-info;
+	}
+	&.widget_tag_cloud {
+		.alert;
+		.alert-success;
+	}
+	ul {
+		list-style-type: none;
+		margin-left: 0;
+		margin-right:10px;
+		line-height:1.2;
+		& li {
+			margin-bottom: .5em;
+			text-indent: -10px;
+		}
+		& >li:before { 
+			font-family: FontAwesome;
+			font-weight: normal;
+			font-size: 0.9em;
+			font-style: normal;
+			display: inline-block;
+			text-decoration: inherit;
+			content: "\f05a\00A0";
+		}	
+	}
+}
 
    /* ================================================
    Agenda table formatting

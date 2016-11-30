@@ -8939,6 +8939,89 @@ body.page aside section.widget.widget_ninja_forms_widget.well-danger blockquote,
 body.page aside section.widget.widget_ninja_forms_widget.well-danger a {
   color: #222222;
 }
+body.archive aside section.widget {
+  font-size: 1.2em;
+}
+body.archive aside section.widget h3 {
+  margin-top: 0;
+}
+body.archive aside section.widget.widget_categories {
+  padding: 15px;
+  margin-bottom: 20px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  background-color: #d9edf7;
+  border-color: #bce8f1;
+  color: #31708f;
+}
+body.archive aside section.widget.widget_categories h4 {
+  margin-top: 0;
+  color: inherit;
+}
+body.archive aside section.widget.widget_categories .alert-link {
+  font-weight: bold;
+}
+body.archive aside section.widget.widget_categories > p,
+body.archive aside section.widget.widget_categories > ul {
+  margin-bottom: 0;
+}
+body.archive aside section.widget.widget_categories > p + p {
+  margin-top: 5px;
+}
+body.archive aside section.widget.widget_categories hr {
+  border-top-color: #a6e1ec;
+}
+body.archive aside section.widget.widget_categories .alert-link {
+  color: #245269;
+}
+body.archive aside section.widget.widget_tag_cloud {
+  padding: 15px;
+  margin-bottom: 20px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  background-color: #dff0d8;
+  border-color: #d6e9c6;
+  color: #3c763d;
+}
+body.archive aside section.widget.widget_tag_cloud h4 {
+  margin-top: 0;
+  color: inherit;
+}
+body.archive aside section.widget.widget_tag_cloud .alert-link {
+  font-weight: bold;
+}
+body.archive aside section.widget.widget_tag_cloud > p,
+body.archive aside section.widget.widget_tag_cloud > ul {
+  margin-bottom: 0;
+}
+body.archive aside section.widget.widget_tag_cloud > p + p {
+  margin-top: 5px;
+}
+body.archive aside section.widget.widget_tag_cloud hr {
+  border-top-color: #c9e2b3;
+}
+body.archive aside section.widget.widget_tag_cloud .alert-link {
+  color: #2b542c;
+}
+body.archive aside section.widget ul {
+  list-style-type: none;
+  margin-left: 0;
+  margin-right: 10px;
+  line-height: 1.2;
+}
+body.archive aside section.widget ul li {
+  margin-bottom: .5em;
+  text-indent: -10px;
+}
+body.archive aside section.widget ul > li:before {
+  font-family: FontAwesome;
+  font-weight: normal;
+  font-size: 0.9em;
+  font-style: normal;
+  display: inline-block;
+  text-decoration: inherit;
+  content: "\f05a\00A0";
+}
 /* ================================================
    Agenda table formatting
    ================================================ */
