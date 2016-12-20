@@ -522,23 +522,25 @@ body aside section.widget {
 		.alert;
 		.alert-success;
 	}
-	ul {
-		list-style-type: none;
-		margin-left: 0;
-		margin-right:10px;
-		line-height:1.2;
-		& li {
-			margin-bottom: .5em;
-			text-indent: -10px;
-		}
-		& >li:before { 
-			font-family: FontAwesome;
-			font-weight: normal;
-			font-size: 0.9em;
-			font-style: normal;
-			display: inline-block;
-			text-decoration: inherit;
-			content: "\f05a\00A0";
+	&.widget_recent_entries {
+		ul {
+			list-style-type: none;
+			margin-left: 0;
+			margin-right:10px;
+			line-height:1.2;
+			>li {
+				margin-bottom: .5em;
+				text-indent: -10px;
+			}
+			& >li:before { 
+				font-family: FontAwesome;
+				font-weight: normal;
+				font-size: 0.9em;
+				font-style: normal;
+				display: inline-block;
+				text-decoration: inherit;
+				content: "\f05a\00A0";
+			}	
 		}	
 	}
 }
