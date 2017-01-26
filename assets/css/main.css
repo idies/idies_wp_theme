@@ -9775,6 +9775,10 @@ a.external-link:after {
   font-size: 1.3333em;
   content: ' \f14c';
 }
+li > img.idies-glyph {
+  margin-left: -21px;
+  padding-right: 8px;
+}
 /* ++++++++++++++++++++++++++++++++++++++++++++++++
    Collapses
    ++++++++++++++++++++++++++++++++++++++++++++++++ */

@@ -40,6 +40,9 @@
 	if ( get_cfc_field( 'events-details' , 'genomics' ) ) :
 		echo '<li><i class="fa-li fa fa-at"></i><strong> A Genomics@JHU Seminar</strong></li>';
 	endif;
+	if ( get_cfc_field( 'events-details' , 'bi-monthly' ) ) :
+		echo '<li><img class="idies-glyph"  src="' . get_bloginfo('template_url') . '/assets/img/idies-d-minicon-14.png"> <strong>An IDIES Bi-Monthly Seminar</strong></li>';
+	endif;
 	echo '</ul>';
 ?>
 <?php the_excerpt(); ?></div>

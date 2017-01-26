@@ -33,6 +33,9 @@
 	if ( get_cfc_field( 'events-details' , 'genomics' ) ) :
 		$info_btn = "<p><a href='/news-events/genomics-jhu-seminar-series/' " . 
 			"target='_blank' class='btn btn-primary'>Genomics @ JHU Seminar Series</a></p>";
+	elseif ( get_cfc_field( 'events-details' , 'bi-monthly' ) ) :
+		$info_btn = "<p><a  href='/news-events/idies-bi-monthly-seminar/' disabled " . 
+			"target='_blank' class='btn btn-primary'>IDIES Bi-Monthly Seminar</a></p>";
 	else:
 		$info_text = ( $info_text = get_cfc_field( 'events-details' , 'more-info' ) ) ?
 			 $info_text:
@@ -50,6 +53,9 @@
 	endif;
 	if ( get_cfc_field( 'events-details' , 'genomics' ) ) :
 		echo '<li><i class="fa-li fa fa-at"></i><strong>A Genomics@JHU Seminar</strong></li>';
+	endif;
+	if ( get_cfc_field( 'events-details' , 'bi-monthly' ) ) :
+		echo '<li><img class="idies-glyph"  src="' . get_bloginfo('template_url') . '/assets/img/idies-d-minicon-14.png"> <strong>An IDIES Bi-Monthly Seminar</strong></li>';
 	endif;
 ?>
 <li><i class="fa-li fa fa-calendar"></i><strong><?php echo $event_date; ?></strong></li>
