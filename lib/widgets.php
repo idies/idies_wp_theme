@@ -21,30 +21,43 @@ class idies_show_posts_by_type_widget extends WP_Widget {
 	private $default_vars = array(
 		'show_date' => true,
 		'blurb_length' => 30,
-		'posts_per_page' => 2,
-		'orderby'=>'date' , 
 		);
 	private $post_vars = array(
 		'show_date' => true,
 		'blurb_length' => 30,
-		'posts_per_page' => 2,
-		'orderby'=>'date' , 
 		);
 	private $jobs_vars = array(
 		'show_date' => true,
 		'blurb_length' => 20,
-		'posts_per_page' => 3,
-		'orderby'=>'date' , 
 		);
 	private $funding_vars = array(
 		'show_date' => false,
 		'blurb_length' => 20,
-		'posts_per_page' => 3,
-		'orderby'=>'rand' , 
 		);
 	private $events_vars = array(
 		'show_date' => false,
 		'blurb_length' => 30,
+		);
+	private $default_args = array(
+		'posts_per_page' => 2,
+		'orderby'=>'date' , 
+		);
+	private $post_args = array(
+		'posts_per_page' => 2,
+		'orderby'=>'date' , 
+		);
+	private $jobs_args = array(
+		'posts_per_page' => 3,
+		'orderby'=>'date' , 
+		'meta_key'     => 'filled',
+		'meta_value'   => 'Filled',
+		'meta_compare' => 'NOT LIKE',
+		);
+	private $funding_args = array(
+		'posts_per_page' => 2,
+		'orderby'=>'rand' , 
+		);
+	private $events_args = array(
 		'posts_per_page' => 2,
 		'orderby'=>'date' , 
 		);
@@ -100,17 +113,23 @@ class idies_show_posts_by_type_widget extends WP_Widget {
         $args['type'] = $type;
 		$args['title'] = empty( $instance['title'] ) ? '' : "<h3>" . $instance['title'] . "</h3>";
 		
+		// How to display the posts
 		$display_vars = ( property_exists( $this , $type . '_vars' ) ) ? $type . "_vars" : 'default_vars';
 		foreach ( $this->$display_vars as $key => $value ) $args[$key] = $value ;
+		
+		// How to select the posts
+		$display_args = ( property_exists( $this , $type . '_args' ) ) ? $type . "_args" : 'default_args';
+
 		$args['archive'] = $this->get_archive_options($type);
+		
         extract($args);
 		
-		$args['type_query'] = new WP_Query( array(
-			'post_type' => $type ,
-			'posts_per_page' => $posts_per_page ,
-			'orderby'=>$orderby , 
-			'post_status' => 'publish')
-		);		
+		// Arguments to find individual posts
+		$type_query_args['post_type'] = $type;
+		foreach ( $this->$display_args as $key => $value ) $type_query_args[$key] = $value ;
+
+		$args['type_query'] = new WP_Query( $type_query_args );
+		
 		if ( !( $args['type_query']->have_posts() ) ) return;
 
 		echo $before_widget;
