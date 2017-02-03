@@ -1,4 +1,7 @@
 <?php get_template_part('templates/page', 'header'); ?>
+<?php while (have_posts()) : the_post(); ?>
+		<?php the_content(); ?>
+<?php endwhile; ?>
 <?php
 $args = array(
 	'posts_per_page'   => -1,
@@ -7,6 +10,9 @@ $args = array(
 	'order'            => 'DESC',
 	'post_type'        => 'events',
 	'post_status'      => 'publish',
+	'meta_key'         => 'bi-monthly',
+	'meta_value'       => 'Yes',
+	'meta_compare'     => 'LIKE',
 );
 $posts_array = get_posts( $args );
 $upcoming = array();
@@ -26,21 +32,21 @@ $today = new DateTime();
 	}
 endforeach; 
 if ( count( $upcoming ) ) : 
-	?><h2>Upcoming Events</h2><?php 
+	?><h2>Upcoming IDIES Bi-Monthly Seminars</h2><?php 
 	foreach ( $upcoming as $post ) : 
 		setup_postdata( $post );
-		get_template_part('templates/content', 'talks-symposia'); 
+		get_template_part('templates/content', 'genomics'); 
 	endforeach;
 else : 
-	?><div class="alert alert-warning">No upcoming events found.</div><?php 
+	?><div class="alert alert-warning">No upcoming IDIES Bi-Monthly Seminars found.</div><?php 
 endif;
 if ( count( $past ) ) : 
-	?><h2>Past Events</h2><?php 
+	?><h2>Past IDIES Bi-Monthly Seminars</h2><?php 
 	foreach ( $past as $post ) : 
 		setup_postdata( $post );
-		get_template_part('templates/content', 'talks-symposia'); 
+		get_template_part('templates/content', 'genomics'); 
 	endforeach;
 else : 
-	?><div class="alert alert-warning">No past events found.</div><?php 
+	?><div class="alert alert-warning">No past IDIES Bi-Monthly Seminars found.</div><?php 
 endif;
 

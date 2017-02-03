@@ -47,7 +47,7 @@ class idies_show_posts_by_type_widget extends WP_Widget {
 		'orderby'=>'date' , 
 		);
 	private $jobs_args = array(
-		'posts_per_page' => 3,
+		'posts_per_page' => 2,
 		'orderby'=>'date' , 
 		'meta_key'     => 'filled',
 		'meta_value'   => 'Filled',
@@ -62,15 +62,6 @@ class idies_show_posts_by_type_widget extends WP_Widget {
 		'orderby'=>'date' , 
 		);
 	
-	//process the new widget
-    /*function idies_show_posts_by_type_widget() {
-        $widget_ops = array(
-            'classname' => 'idies_show_posts_by_type_widget_class',
-            'description' => 'Display posts by type.'
-        );
-        $this->WP_Widget( 'idies_show_posts_by_type_widget', 'IDIES Show Posts by Type',
-            $widget_ops );
-    }*/
 	function __construct() {
 		parent::__construct(
 			'idies_show_posts_by_type_widget_class', // Base ID
