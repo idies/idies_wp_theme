@@ -62,6 +62,49 @@ function roots_widgets_init() {
 }
 add_action('widgets_init', 'roots_widgets_init');
 
+/*
+ *****************************************
+ IDIES HOUSEKEEPING TASKS 
+ *****************************************
+ */
+ 
+/*
+ *
+ * SET EVENTS THAT HAVE PASSED TO 'Past'
+ * 
+ */
+function check_past_events(  ) {
+	if ( is_admin() ) {
+		
+		$args = array(
+			'posts_per_page'   => -1,
+			'post_type'        => 'events',
+			'post_status'      => 'publish',
+			'meta_key'         => 'Past',
+			'meta_value'       => '',
+		);
+		
+		$posts_array = get_posts( $args );
+
+		$today = new DateTime();
+		
+		foreach ( $posts_array as $post ) {
+			setup_postdata( $post );
+						
+			$start_date = new DateTime( get_cfc_field( 'events-details' , 'event-date' , $post->ID ) );
+			$multiday = ( strcmp( "Yes" , get_cfc_field( 'events-details' , 'multi-day-event' , $post->ID ) ) === 0 ) ;
+			$end_date = new DateTime( get_cfc_field( 'events-details' , 'event-end-date' , $post->ID ) );
+			
+			if ( ( $multiday && ( $end_date < $today ) ) ||  ( !($multiday) && ( $start_date < $today ) ) ) {
+				// in the past
+				//die( the_title() . " is in the past." );
+				update_post_meta( $post->ID , 'Past' , 'Yes' );
+			}
+		}
+	}
+}
+add_action('admin_init', 'check_past_events');
+
 /***************************************
 * IDIES
 ***************************************/

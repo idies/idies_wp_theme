@@ -35,7 +35,7 @@ if ( count( $upcoming ) ) :
 	?><h2>Upcoming IDIES Bi-Monthly Seminars</h2><?php 
 	foreach ( $upcoming as $post ) : 
 		setup_postdata( $post );
-		get_template_part('templates/content', 'genomics'); 
+		get_template_part('templates/content', 'bimonthly'); 
 	endforeach;
 else : 
 	?><div class="alert alert-warning">No upcoming IDIES Bi-Monthly Seminars found.</div><?php 
@@ -44,7 +44,7 @@ if ( count( $past ) ) :
 	?><h2>Past IDIES Bi-Monthly Seminars</h2><?php 
 	foreach ( $past as $post ) : 
 		setup_postdata( $post );
-		get_template_part('templates/content', 'genomics'); 
+		get_template_part('templates/content', 'bimonthly'); 
 	endforeach;
 else : 
 	?><div class="alert alert-warning">No past IDIES Bi-Monthly Seminars found.</div><?php 
