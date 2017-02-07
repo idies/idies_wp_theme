@@ -73,7 +73,8 @@ add_action('widgets_init', 'roots_widgets_init');
  * SET EVENTS THAT HAVE PASSED TO 'Past'
  * 
  */
-function check_past_events(  ) {
+add_action('admin_init', 'idies_check_past_events');
+function idies_check_past_events(  ) {
 	if ( is_admin() ) {
 		
 		$args = array(
@@ -81,7 +82,7 @@ function check_past_events(  ) {
 			'post_type'        => 'events',
 			'post_status'      => 'publish',
 			'meta_key'         => 'Past',
-			'meta_value'       => '',
+			'meta_value'       => 'No',
 		);
 		
 		$posts_array = get_posts( $args );
@@ -103,8 +104,58 @@ function check_past_events(  ) {
 		}
 	}
 }
-add_action('admin_init', 'check_past_events');
 
+/*
+ *
+ * SET UP PAGINATION AND OFFSET FOR PAST EVENTS
+ * 
+ */
+//add_action( 'pre_get_posts' , 'idies_query_offset' , 1 );
+function idies_query_offset( &$query ) {
+
+    //Before anything else, make sure this is the right query...
+    if ( ! $query->is_home() ) {
+        return;
+    }
+
+    //First, define your desired offset...
+    $offset = 10;
+    
+    //Next, determine how many posts per page you want (we'll use WordPress's settings)
+    $ppp = get_option('posts_per_page');
+	
+    //Next, detect and handle pagination...
+    if ( $query->is_paged ) {
+        //Manually determine page query offset (offset + current page (minus one) x posts per page)
+        $page_offset = $offset + ( ($query->query_vars['paged']-1) * $ppp );
+		
+        //Apply adjust page offset
+        $query->set('offset', $page_offset );
+    }
+    else {
+        //This is the first page. Just use the offset...
+        $query->set('offset',$offset);
+    }
+}
+
+/*
+ *
+ * TAKE THE OFFSET INTO ACCOUNT WHEN CHECKING NUMBER OF POSTS
+ * 
+ */
+//add_filter('found_posts', 'idies_adjust_offset_pagination', 1, 2 );
+function idies_adjust_offset_pagination( $found_posts , $query ) {
+
+    //Define our offset again...
+    $offset = 10;
+
+    //Ensure we're modifying the right query object...
+    if ( $query->is_home() ) {
+        //Reduce WordPress's found_posts count by the offset... 
+        return $found_posts - $offset;
+    }
+    return $found_posts;
+}
 /***************************************
 * IDIES
 ***************************************/
