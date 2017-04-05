@@ -58,8 +58,10 @@ class idies_show_posts_by_type_widget extends WP_Widget {
 		'orderby'=>'rand' , 
 		);
 	private $events_args = array(
-		'posts_per_page' => 2,
+		'posts_per_page' => 4,
 		'orderby'=>'date' , 
+		'meta_key'			=> 'past',
+		'meta_value'		=> 'No',
 		);
 	
 	function __construct() {

@@ -18,7 +18,6 @@ if ( $paged == 1 ) {
 		'posts_per_page'	=> -1,
 		'offset'   			=> 0,
 		'orderby'			=> 'date',
-		'order'				=> 'DESC',
 		'post_type'			=> 'events',
 		'post_status'		=> 'publish',
 		'meta_key'			=> 'past',
