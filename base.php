@@ -13,7 +13,7 @@ get_template_part('templates/head');
 	} else {
 		get_template_part('templates/header');
 	}	
-  ?>
+?>
   <div class="wrap container" role="document">
     <div class="content row">
       <main class="main" role="main">

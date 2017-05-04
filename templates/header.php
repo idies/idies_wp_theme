@@ -1,5 +1,3 @@
-<?php
-?>
 <header class="banner" role="banner">
 	<div class="logo">
 		<div class="container">
@@ -42,4 +40,3 @@
 		</div>
 	</div>
 </header>
-<?php
