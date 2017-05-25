@@ -49,9 +49,9 @@ class idies_show_posts_by_type_widget extends WP_Widget {
 	private $jobs_args = array(
 		'posts_per_page' => 2,
 		'orderby'=>'date' , 
-		'meta_key'     => 'filled',
-		'meta_value'   => 'Filled',
-		'meta_compare' => 'NOT LIKE',
+		//'meta_key'     => 'filled',
+		//'meta_value'   => 'Filled',
+		//'meta_compare' => 'NOT LIKE',
 		);
 	private $funding_args = array(
 		'posts_per_page' => 2,
@@ -210,6 +210,7 @@ class idies_show_posts_by_type_widget extends WP_Widget {
 		echo "<div class='show-posts'>";
 		echo "<h3>" . $title . "</h3>";
 		while ( $type_query->have_posts() ) : $type_query->the_post();
+			if ( get_post_meta( get_the_id() , 'filled' , true ) == 'Filled' ) continue;
 			echo "<div class='show-post-excerpt'>";
 			echo "<a href='" . get_permalink(  ) . "'><h4>" . get_the_title(  ) . "</h4></a>";
 			if ($show_date) echo '<p class="show-date"><i class="fa fa-calendar"></i>&nbsp;<strong> Posted: ' . get_the_date() . '</strong></p>';
