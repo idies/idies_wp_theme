@@ -10,7 +10,7 @@ endwhile;
 
 // Find page to show from query var & check it
 $tab_pane = get_query_var( 'idies-affil-pane' , 'people' );
-if ( !in_array( $tab_pane , array( 'people', 'execcomm' , 'staff' ) ) ) $tab_pane = 'people';
+if ( !in_array( $tab_pane , array( 'people', 'execcomm' , 'staff' , 'centers' ) ) ) $tab_pane = 'people';
 
 $i=1;
 
@@ -25,6 +25,14 @@ $execcomm_affiliates = idies_filter_affil( $all_affiliates , "execcomm" , TRUE);
 $people_affiliates = idies_filter_affil( $all_affiliates , "staff" , FALSE );
 $staff_affiliates = idies_filter_affil( $all_affiliates , "staff" , TRUE );
 
+$centers = get_posts( array(
+		'posts_per_page'   => 5,
+		'orderby'          => 'title',
+		'order'          => 'ASC',
+		'post_type'        => 'center',
+		'post_status'      => 'publish',
+	) );
+
 ?>
 <div>
   <!-- Nav tabs -->
@@ -32,6 +40,7 @@ $staff_affiliates = idies_filter_affil( $all_affiliates , "staff" , TRUE );
     <li role="presentation" class="active"><a href="#people" aria-controls="people" role="tab" data-toggle="tab" class="h4">Affiliates</a></li>
     <li role="presentation"><a href="#execcomm" aria-controls="execcomm" role="tab" data-toggle="tab" class="h4">Executive Committee</a></li>
     <li role="presentation"><a href="#staff" aria-controls="staff" role="tab" data-toggle="tab" class="h4">Staff</a></li>
+    <li role="presentation"><a href="#centers" aria-controls="centers" role="tab" data-toggle="tab" class="h4">Affiliated JHU Centers</a></li>
   </ul>
 
   <!-- Tab panes -->
@@ -146,6 +155,18 @@ $staff_affiliates = idies_filter_affil( $all_affiliates , "staff" , TRUE );
 ?>
 					</div>
 					</div>
+				</div>
+			</div>
+		</div>		
+		<!-- Centers pane -->
+		<?php $context='centers';?>
+		<div role="tabpanel" class="tab-pane <?php if ($tab_pane == 'centers') echo "active"; ?>" id="<?php echo $context; ?>">
+			<div class="row">
+				<div class="col-xs-12">
+					<?php foreach ( $centers as $post ) : setup_postdata( $post ); ?>
+					<?php get_template_part( 'templates/content' ); ?>
+					<?php endforeach; ?>
+					<?php wp_reset_postdata();?>
 				</div>
 			</div>
 		</div>
