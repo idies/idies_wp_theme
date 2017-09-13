@@ -11,6 +11,24 @@ endwhile;
 // Find page to show from query var & check it
 $tab_pane = get_query_var( 'idies-affil-pane' , 'people' );
 if ( !in_array( $tab_pane , array( 'people', 'execcomm' , 'staff' , 'centers' ) ) ) $tab_pane = 'people';
+$people_class="";
+$execcomm_class="";
+$staff_class="";
+$centers_class="";
+switch ( $tab_pane ) {
+	case "people":
+		$people_class = 'active';
+		break;
+	case "execcomm":
+		$execcomm_class = 'active';
+		break;
+	case "staff":
+		$staff_class = 'active';
+		break;
+	case "centers":
+		$centers_class = 'active';
+		break;
+}
 
 $i=1;
 
@@ -29,18 +47,20 @@ $centers = get_posts( array(
 		'posts_per_page'   => 5,
 		'orderby'          => 'title',
 		'order'          => 'ASC',
+		'exclude'		=>	'1168',
 		'post_type'        => 'center',
 		'post_status'      => 'publish',
 	) );
+
 
 ?>
 <div>
   <!-- Nav tabs -->
   <ul id="affiliateTabs" class="nav nav-tabs" role="tablist">
-    <li role="presentation" class="active"><a href="#people" aria-controls="people" role="tab" data-toggle="tab" class="h4">Affiliates</a></li>
-    <li role="presentation"><a href="#execcomm" aria-controls="execcomm" role="tab" data-toggle="tab" class="h4">Executive Committee</a></li>
-    <li role="presentation"><a href="#staff" aria-controls="staff" role="tab" data-toggle="tab" class="h4">Staff</a></li>
-    <li role="presentation"><a href="#centers" aria-controls="centers" role="tab" data-toggle="tab" class="h4">Affiliated JHU Centers</a></li>
+    <li role="presentation" class="<?php echo $people_class; ?>"><a href="#people" aria-controls="people" role="tab" data-toggle="tab" class="h4">Affiliates</a></li>
+    <li role="presentation" class="<?php echo $execcomm_class; ?>"><a href="#execcomm" aria-controls="execcomm" role="tab" data-toggle="tab" class="h4">Executive Committee</a></li>
+    <li role="presentation" class="<?php echo $staff_class; ?>"><a href="#staff" aria-controls="staff" role="tab" data-toggle="tab" class="h4">Staff</a></li>
+    <li role="presentation" class="<?php echo $centers_class; ?>"><a href="#centers" aria-controls="centers" role="tab" data-toggle="tab" class="h4">Affiliated JHU Centers</a></li>
   </ul>
 
   <!-- Tab panes -->
@@ -48,7 +68,7 @@ $centers = get_posts( array(
   
 		<!-- People pane -->
 		<?php $context='people';?>
-		<div role="tabpanel" class="tab-pane active filterz" id="<?php echo $context; ?>">
+		<div role="tabpanel" class="tab-pane <?php echo $people_class; ?> filterz" id="<?php echo $context; ?>">
 			<div class="row">
 <?php			// Show affiliates ?>
 				<div class="col-sm-9 col-xs-12">
@@ -114,7 +134,7 @@ $centers = get_posts( array(
 		
 		<!-- Executive Committee pane -->
 		<?php $context='execcomm';?>
-		<div role="tabpanel" class="tab-pane <?php if ($tab_pane == 'execcomm') echo "active"; ?>" id="<?php echo $context; ?>">
+		<div role="tabpanel" class="tab-pane <?php echo $execcomm_class; ?>" id="<?php echo $context; ?>">
 			<div class="row">
 				<div class="col-xs-12">
 					<div class="sortablz">
@@ -139,7 +159,7 @@ $centers = get_posts( array(
 		
 		<!-- Staff pane -->
 		<?php $context='staff';?>
-		<div role="tabpanel" class="tab-pane <?php if ($tab_pane == 'staff') echo "active"; ?>" id="<?php echo $context; ?>">
+		<div role="tabpanel" class="tab-pane <?php echo $staff_class; ?>" id="<?php echo $context; ?>">
 			<div class="row">
 				<div class="col-xs-12">
 					<div class="sortablz">
@@ -160,7 +180,7 @@ $centers = get_posts( array(
 		</div>		
 		<!-- Centers pane -->
 		<?php $context='centers';?>
-		<div role="tabpanel" class="tab-pane <?php if ($tab_pane == 'centers') echo "active"; ?>" id="<?php echo $context; ?>">
+		<div role="tabpanel" class="tab-pane <?php echo $centers_class; ?>" id="<?php echo $context; ?>">
 			<div class="row">
 				<div class="col-xs-12">
 					<?php foreach ( $centers as $post ) : setup_postdata( $post ); ?>
