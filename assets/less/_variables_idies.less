@@ -508,6 +508,12 @@ body div.universe {
 /* ++++++++++++++++++++++++++++++++++++++++++++++++
    Future Page
    ++++++++++++++++++++++++++++++++++++++++++++++++ */
+body.page.proposal-submission-service {
+    a.btn.btn-primary {
+		max-width: 100%;
+		overflow: hidden;
+	}
+}
 body.page.future {
 	div.page-header {
 		margin: 0;
@@ -949,7 +955,7 @@ ul.dropdown-menu>li>a>hr {
 /* ================================================
    Wells
    ================================================ */
-.well {
+.well:not(.well-primary):not(.well-info):not(.well-success):not(.well-warning):not(.well-danger) {
 	background-image: -webkit-linear-gradient(#e3e5e7 0,#f1f2f3 100%);
 	background-image: linear-gradient(to bottom,#e3e5e7 0,#f1f2f3 100%);
 	background-repeat: repeat-x;

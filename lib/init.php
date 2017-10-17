@@ -81,13 +81,14 @@ function idies_check_past_events(  ) {
 			'posts_per_page'   => -1,
 			'post_type'        => 'events',
 			'post_status'      => 'publish',
-			'meta_key'         => 'Past',
-			'meta_value'       => 'No',
+			//'meta_key'         => 'Past',
+			//'meta_value'       => 'No',
 		);
 		
 		$posts_array = get_posts( $args );
 
 		$today = new DateTime();
+		$today->modify('+1 day');
 		
 		foreach ( $posts_array as $post ) {
 			setup_postdata( $post );
@@ -95,6 +96,9 @@ function idies_check_past_events(  ) {
 			$start_date = new DateTime( get_cfc_field( 'events-details' , 'event-date' , $post->ID ) );
 			$multiday = ( strcmp( "Yes" , get_cfc_field( 'events-details' , 'multi-day-event' , $post->ID ) ) === 0 ) ;
 			$end_date = new DateTime( get_cfc_field( 'events-details' , 'event-end-date' , $post->ID ) );
+
+			//die( 'Start: ' . $start_date->format('Y-m-d H:i:s') . '; Multiday: ' . $multiday . '; End: ' . $end_date->format('Y-m-d H:i:s') . '; Today: ' . $today->->format('Y-m-d H:i:s') );
+			//die( 'Start: ' . $start_date->format('Y-m-d H:i:s') . '; Multiday: ' . $multiday . '; Today: ' . $today->format('Y-m-d H:i:s'));
 			
 			if ( ( $multiday && ( $end_date < $today ) ) ||  ( !($multiday) && ( $start_date < $today ) ) ) {
 				// in the past
