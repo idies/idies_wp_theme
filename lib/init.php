@@ -100,10 +100,12 @@ function idies_check_past_events(  ) {
 			//die( 'Start: ' . $start_date->format('Y-m-d H:i:s') . '; Multiday: ' . $multiday . '; End: ' . $end_date->format('Y-m-d H:i:s') . '; Today: ' . $today->->format('Y-m-d H:i:s') );
 			//die( 'Start: ' . $start_date->format('Y-m-d H:i:s') . '; Multiday: ' . $multiday . '; Today: ' . $today->format('Y-m-d H:i:s'));
 			
-			if ( ( $multiday && ( $end_date < $today ) ) ||  ( !($multiday) && ( $start_date < $today ) ) ) {
+			if ( ( $multiday && ( $end_date < $today ) ) ||  ( !($multiday) && ( $start_date > $today ) ) ) {
 				// in the past
 				//die( the_title() . " is in the past." );
 				update_post_meta( $post->ID , 'Past' , 'Yes' );
+			} else {
+				update_post_meta( $post->ID , 'Past' , 'No' );
 			}
 		}
 	}
