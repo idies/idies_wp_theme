@@ -67,46 +67,50 @@ add_action('widgets_init', 'roots_widgets_init');
  IDIES HOUSEKEEPING TASKS 
  *****************************************
  */
- 
+function idies_event_timestamp( $post_id , $post, $update ) {
+
+	// Check type and status
+	if ( empty( $post_id ) ||
+		wp_is_post_revision( $post_id ) || 
+		!( get_post_type( $post_id ) === 'events' ) || 
+		!( get_post_status( $post_id ) === 'publish' ) ) return;
+		
+	$enddate = !empty( $_POST['events-details_event-end-date'] ) ? $_POST['events-details_event-end-date'] : $_POST['events-details_event-date'];
+	$endtime = $_POST['events-details_end-time'];
+	$DTstamp = DateTime::createFromFormat( "d-m-Y H:i:s" , "$enddate $endtime:00" , new DateTimeZone('America/New_York') );
+	//$DTstamp->setTimezone( new DateTimeZone('America/New_York') );
+	$timestamp = $DTstamp->getTimestamp();
+	
+	update_post_meta( $post_id , 'timestamp' , $timestamp );
+}
+add_action( 'save_post_events', 'idies_event_timestamp' , 10, 3);
+
 /*
- *
- * SET EVENTS THAT HAVE PASSED TO 'Past'
- * 
+ * Update/add unix timestamp to all Events
  */
-add_action('admin_init', 'idies_check_past_events');
-function idies_check_past_events(  ) {
-	if ( is_admin() ) {
-		
-		$args = array(
-			'posts_per_page'   => -1,
-			'post_type'        => 'events',
-			'post_status'      => 'publish',
-			//'meta_key'         => 'Past',
-			//'meta_value'       => 'No',
-		);
-		
-		$posts_array = get_posts( $args );
+//add_action('admin_init', 'idies_set_past_events');
+function idies_set_past_events(  ) {
+	
+	$event_args = array(
+		'posts_per_page'	=> -1,
+		'post_type'			=> 'events',
+		'post_status'		=> 'publish',
+	);
+	$all_events = new WP_Query( $event_args );
+	if ( $all_events->have_posts() ) {
 
-		$today = new DateTime();
-		$today->modify('+1 day');
-		
-		foreach ( $posts_array as $post ) {
-			setup_postdata( $post );
-						
-			$start_date = new DateTime( get_cfc_field( 'events-details' , 'event-date' , $post->ID ) );
-			$multiday = ( strcmp( "Yes" , get_cfc_field( 'events-details' , 'multi-day-event' , $post->ID ) ) === 0 ) ;
-			$end_date = new DateTime( get_cfc_field( 'events-details' , 'event-end-date' , $post->ID ) );
-
-			//die( 'Start: ' . $start_date->format('Y-m-d H:i:s') . '; Multiday: ' . $multiday . '; End: ' . $end_date->format('Y-m-d H:i:s') . '; Today: ' . $today->->format('Y-m-d H:i:s') );
-			//die( 'Start: ' . $start_date->format('Y-m-d H:i:s') . '; Multiday: ' . $multiday . '; Today: ' . $today->format('Y-m-d H:i:s'));
+		while ( $all_events->have_posts() ) {
 			
-			if ( ( $multiday && ( $end_date < $today ) ) ||  ( !($multiday) && ( $start_date < $today ) ) ) {
-				// in the past
-				//die( the_title() . " is in the past." );
-				update_post_meta( $post->ID , 'Past' , 'Yes' );
-			}
+			$all_events->the_post(); // Enter the Loop
+			$enddate = get_post_meta( get_the_id() , 'event-end-date' , true );
+			if ( empty( $enddate ) ) $enddate = get_post_meta( get_the_id() , 'event-date' , true );
+			$endtime = get_post_meta( get_the_id() , 'end-time' , true );
+			$timestamp = DateTime::createFromFormat( "d-m-Y H:i:s" , "$enddate $endtime:00" , new DateTimeZone('America/New_York') );	
+			update_post_meta( get_the_id() , 'timestamp' , $timestamp->getTimestamp() );
+			
 		}
-	}
+		wp_reset_postdata(); // Return to original Loop
+	} 
 }
 
 /*

@@ -1,52 +1,57 @@
-<?php get_template_part('templates/page', 'header'); ?>
-<?php while (have_posts()) : the_post(); ?>
-		<?php the_content(); ?>
-<?php endwhile; ?>
-<?php
-$args = array(
-	'posts_per_page'   => -1,
-	'offset'   => 0,
-	'orderby'          => 'date',
-	'order'            => 'DESC',
+<?php 
+global $post;
+get_template_part('templates/page', 'header'); 
+while (have_posts()) : the_post(); 
+	the_content(); 
+endwhile; 
+
+$today = time();
+$pastHeader=false;
+$upcomingHeader=false;
+
+// Set up (past events) pagination.
+$paged = ( get_query_var('paged') ) ? get_query_var('paged') : 1;
+
+// Get all the seminars.
+$event_args = array(
+	'paged'				=> $paged,
 	'post_type'        => 'events',
 	'post_status'      => 'publish',
-	'meta_key'         => 'genomics',
-	'meta_value'       => 'Yes',
-	'meta_compare'     => 'LIKE',
+	'orderby'			=> 'meta_value_num',
+	'order'            => 'DESC',
+	'meta_key'         => 'timestamp',
+	'meta_query'		=> array(
+		'key'			=> 'genomics',
+		'value'			=> 'Yes',
+		'compare'		=> 'LIKE',
+	),
 );
-$posts_array = get_posts( $args );
-$upcoming = array();
-$past = array();
-$today = new DateTime();
-?>
-<?php foreach ( $posts_array as $post ) : 
-	setup_postdata( $post ); 	
-	//it's ok not to have a date, but if it has a date that is past, skip it an show it under Past Events.
-	$multiday = ( strcmp( "Yes" , get_cfc_field( 'events-details' , 'multi-day-event' ) ) === 0 ) ;
-	$start_date = new DateTime( get_cfc_field( 'events-details' , 'event-date' ) );
-	$end_date = new DateTime( get_cfc_field( 'events-details' , 'event-end-date' ) );
-	if ( ( $multiday && ( $end_date >= $today ) ) ||  ( $start_date >= $today ) ) {
-		array_push( $upcoming , $post );
-	} else {
-		array_push( $past , $post );
-	}
-endforeach; 
-if ( count( $upcoming ) ) : 
-	?><h2>Upcoming Genomics@JHU Seminars</h2><?php 
-	foreach ( $upcoming as $post ) : 
-		setup_postdata( $post );
+$events_query = new WP_Query( $event_args );
+if ( $events_query->have_posts() ) {
+	while ( $events_query->have_posts() ) { 
+		$events_query->the_post();	// Start the Loop
+		$thistimestamp  = get_post_meta( get_the_id() , 'timestamp' , true );
+		if ( !$upcomingHeader && $today < $thistimestamp ) {
+			$upcomingHeader = true;
+			echo '<h2>Upcoming Seminars</h2>';
+		} elseif ( !$pastHeader && $today > $thistimestamp ) {
+			$upcomingHeader = true;
+			$pastHeader = true;
+			echo '<h2>Past Seminars</h2>';
+		}
+		//echo "<h3>" . $thistimestamp . ": " . date('Y-m-d h:i', $thistimestamp ) . "</h3>";
 		get_template_part('templates/content', 'genomics'); 
-	endforeach;
-else : 
-	?><div class="alert alert-warning">No upcoming Genomics@JHU Seminars found.</div><?php 
-endif;
-if ( count( $past ) ) : 
-	?><h2>Past Genomics@JHU Seminars</h2><?php 
-	foreach ( $past as $post ) : 
-		setup_postdata( $post );
-		get_template_part('templates/content', 'genomics'); 
-	endforeach;
-else : 
-	?><div class="alert alert-warning">No past Genomics@JHU Seminars found.</div><?php 
-endif;
-
+	} 
+	// Show Events Pagination
+	?>
+<nav class="post-nav">
+	<ul class="pager">
+		<li class="previous"><?php next_posts_link( 'Earlier Events', $events_query->max_num_pages ); ?></li>
+		<li class="next"><?php previous_posts_link( 'More Recent Events' ); ?></li>
+	</ul>
+</nav>
+<?php
+	wp_reset_postdata();
+} else {
+	?><div class="alert alert-warning">No upcoming seminars found</div><?php 
+}

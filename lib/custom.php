@@ -637,6 +637,7 @@ function idies_report_error( $msg ){
 }
 
 // Add an IDIES dashboard Widget.
+/*/
 function idies_add_dashboard_widgets() {
 
 	wp_add_dashboard_widget(
@@ -646,10 +647,10 @@ function idies_add_dashboard_widgets() {
         );	
 }
 add_action( 'wp_dashboard_setup', 'idies_add_dashboard_widgets' );
+/*/
 
 /**
  * Add a button linking the Speaker To Do List to the Dashboard Widget.
- */
 function idies_dashboard_widget_contents() {
 
 	// Display whatever it is you want to show.
@@ -658,6 +659,7 @@ function idies_dashboard_widget_contents() {
 	echo "</div>";
 	
 }
+ */
 
 /**
  * Aim the endraftinator ray at a post or page.
