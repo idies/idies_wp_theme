@@ -88,7 +88,7 @@ add_action( 'save_post_events', 'idies_event_timestamp' , 10, 3);
 /*
  * Update/add unix timestamp to all Events
  */
-//add_action('admin_init', 'idies_set_past_events');
+add_action('admin_init', 'idies_set_past_events');
 function idies_set_past_events(  ) {
 	
 	$event_args = array(

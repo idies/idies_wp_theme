@@ -48,5 +48,5 @@ if ( $events_query->have_posts() ) {
 <?php
 	wp_reset_postdata();
 } else {
-	?><div class="alert alert-warning">No upcoming events found</div> 
+	?><div class="alert alert-warning">No upcoming events found</div> <?php
 }
