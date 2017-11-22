@@ -150,6 +150,7 @@ module.exports = function(grunt) {
         files: [
           'assets/css/main.css',
           'assets/js/scripts.js',
+          'lib/*.php',
           'templates/*.php',
           '*.php'
         ]
