@@ -1,7 +1,7 @@
 <?php while (have_posts()) : the_post(); ?>
 <article <?php post_class(); ?>>
 <header>
-<h2><?php echo get_post_format(); ?><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
+<h2><?php echo get_post_format(); ?><?php the_title(); ?></h2>
 <?php if ( check_wck() ) {$idies_title = get_cfc_field( 'affiliate-details' , 'idies-title' ) ; } ?>
 <?php if (!empty($idies_title) ) { ?><p class="lead"><?php echo $idies_title; ?>, IDIES</p><?php } ?>
 </header>
@@ -48,6 +48,14 @@ foreach (  get_cfc_meta( 'dept-center-affiliations' ) as $key => $value ) {
 <?php endif; ?>
 </ul>
 <?php endif; //check_cfc_field ?>
+</div>
+<div class="col-xs-12">
+<h3>Custom Searches</h3>
+<dl class="dl dl-horizontal">
+<dt><a href="<?php echo add_query_arg( 'q', urlencode( get_the_title() ), 'https://www.jhu.edu/search/?c=gsa'); ?>" target="_blank"><strong>Search JHU</strong></a></dt><dd>Search the Johns Hopkins University websites for <?php the_title(); ?>.</dd>
+<dt><a href="<?php echo add_query_arg( 'q', urlencode( get_the_title() ), 'https://scholar.google.com/scholar?hl=en'); ?>" target="_blank"><strong>Search Google Scholar</strong></a></dt><dd>Search Google Scholar for <?php the_title(); ?>.</dd>
+</dl>
+<div class="clearfix"><div>
 </div>
 <div class="col-xs-12">
 <?php the_content(); ?>

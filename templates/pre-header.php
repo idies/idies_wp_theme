@@ -12,3 +12,23 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <?php _e('You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.', 'roots'); ?>
     </div>
   <![endif]-->
+<?php 
+if ( defined( 'WP_ENV' ) && 
+	( strcmp( WP_ENV , 'development' ) === 0 ) ) : 
+?>
+	<div class="wrap container-fluid" role="document">
+		<div class="content row">
+			<div class="col-xs-12" style="background-color: yellow;">
+				<p class="h1 pull-left">test.idies.jhu.edu</p>
+				<p class="pull-right align-right">&nbsp;<br><?php
+				if (! is_user_logged_in()) {
+					echo( '<span><a href="/wp-login.php" class="btn btn-primary">Log In</a></span>' );
+				} 
+				?></p>
+			</div>
+			<div class="clearfix"><div>
+		</div>
+	</div>
+<?php
+endif;
+?>
