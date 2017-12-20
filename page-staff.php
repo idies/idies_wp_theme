@@ -40,7 +40,7 @@ foreach( $tmp_depts as $this_dept ) $depts[$this_dept->ID] = $this_dept;
 <div>
 	<!-- Nav tabs -->
 	<ul class="nav nav-tabs" >
-		<li role="presentation" ><a href="/affiliates/?idies-affil-pane=people" class="h4">Affiliates</a></li>
+		<li role="presentation"><a href="/affiliates/" class="h4">Affiliates</a></li>
 		<li role="presentation" ><a href="/affiliates/execcomm" class="h4">Executive Committee</a></li>
 		<li role="presentation" class="active"><a href="/affiliates/staff/" class="h4">Staff</a></li>
 		<li role="presentation" ><a href="/affiliates/affiliated-centers/" class="h4">Affiliated JHU Centers</a></li>

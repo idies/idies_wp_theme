@@ -9,7 +9,7 @@ while (have_posts()) : the_post();
 endwhile; 
 
 // get and flatten schools, centers, depts, and affiliates (putting school info in depts and dept/center info in affiliates
-/*/
+
 $all_affiliates = idies_get_affiliates( "last" );
 $all_affiliates = get_affiliate_wells( $all_affiliates );
 
@@ -17,8 +17,8 @@ $all_departments = idies_get_departments( $all_affiliates );
 $all_schools = idies_get_schools( $all_affiliates );
 
 $people_affiliates = idies_filter_affil( $all_affiliates , "staff" , FALSE );
-/*/
 
+/*/
 // DATA
 $affiliates = get_posts( array(
 		'posts_per_page'   	=> -1,
@@ -38,12 +38,13 @@ $tmp_schools = get_posts( array(
 foreach( $tmp_schools as $this_school ) $schools[$this_school->ID] = $this_school;
 
 global $depts;
-$tmp_depts = get_posts( array(
+$tmp_depts = get_posts( array		
 		'posts_per_page'   	=> -1,
 		'post_type'        	=> 'department',
 		'post_status'      	=> 'publish',
 	) );
 foreach( $tmp_depts as $this_dept ) $depts[$this_dept->ID] = $this_dept;
+/*/
 
 $i=1;
 
@@ -69,8 +70,7 @@ $i=1;
 						<?php show_orderby( $orderby_options = array( 'last' => 'Last Name', 'dept' => 'Department'  , 'school' => 'School' ) , $i++ ) ; ?>
 						<div class='row filterz-targets'>
 							<div class="filterz-noresults text-center"></div>
-							<?php foreach ( $affiliates as $this_affiliate) echo show_affiliate( $this_affiliate ); ?>
-							<?php //foreach ( $people_affiliates as $this_affiliate) echo $this_affiliate['well']; ?>
+							<?php foreach ( $people_affiliates as $this_affiliate) echo $this_affiliate['well']; ?>
 						</div>
 					</div>
 				</div>
@@ -118,66 +118,6 @@ $i=1;
 
 <?php //AFFILIATE FUNCTIONS 
 
-
-// Show an affiliate in a formatted well.
-function show_affiliate( $this_affiliate ) {
-	
-	global $schools;
-	global $depts;
-	global $post;
-	
-	$result = '';
-	$dkey = 'department-or-center';
-	$skey = 'schooldivision';	
-	$j=1;
-	
-	while ( !empty( $this_affiliate->$dkey ) ) {
-		$my_depts[] = $this_affiliate->$dkey;
-		$tmp_schools[] = $depts[ $this_affiliate->$dkey ]->$skey;
-		$dkey = 'department-or-center_' . $j++;
-		
-	}
-	$my_schools = array_unique( $tmp_schools ); // may be duplicates
-
-	/*/
-	idies_debug( gettype( $my_schools ) ) ;
-	idies_debug( $my_depts ) ;
-	die(  ) ;
-	/*/
-	
-	$target_class = ' filterz-target ';
-	$target_class .= ( count( $my_schools ) ) ? ' filterz-' . implode( ' filterz-' , $my_schools ) : '' ;
-	$target_class .= ( count( $my_depts ) ) ? ' filterz-' . implode( ' filterz-' , $my_depts ) : '' ;
-	
-	//sortablz data fields for Order-By toggles
-	$sortablz_class = " data-last='" . $this_affiliate->{'last_name'} . "' ";
-	$sortablz_class .=( count( $my_schools ) ) ? " data-school='" . $my_schools[0] . "' " : '' ; // can only sort by first element
-	$sortablz_class .=( count( $my_depts ) ) ? " data-dept='" . $my_depts[0] . "' " : '' ; // can only sort by first element	
-	
-	$my_depts = '<em>' . join( '</em><br><em>', $my_depts ) .  '</em><br>';
-	$my_schools = '<strong>' . join( '</strong><br><strong>', $my_schools ) .  '</strong><br>';
-
-	if ( count( $this_affiliate['depts'] ) ) {
-		$dept_keys = array_keys( $my_depts );
-		$sortablz_class .= " data-dept='" . $my_depts[0]->{'post_title'} . "' ";
-	}
-	$this_affiliate['well'] = get_affiliate_well( $this_affiliate , $target_class , $sortablz_class );
-	$new_affiliates[] = $this_affiliate;
-
-	$result .=  "<div class='sortablz-target' >";
-	$result .=  "<div class='$target_class sortablz-contents' $sortablz_class>";
-	$result .= "<div class='col-lg-4 col-sm-6 col-xs-12'>";
-	$result .= "<div class='well'>";
-	$result .= "<p class='bigger'><strong><a href='" . get_permalink() . "'>" . get_the_title() . "</a></strong></p>";
-	$result .= "<p>" . $my_depts . '</p>';
-	$result .= "<p>" . $my_schools . '</p>';
-	$result .= "</div>";
-	$result .= "</div>";
-	$result .= "</div>";
-	$result .= "</div>";
-
-	return $result;
-}
 
 // Show the Order By options
 function show_orderby( $options = array() , $i ) {
@@ -248,41 +188,6 @@ function get_affiliate_wells( $the_affiliates ) {
 	}
 	
 	return $new_affiliates;
-}
-
-// Formatted Affiliate wells, including classes and attributes.
-// Add key that contains well markup to $affiliates array and return 
-// augmented array.
-// 
-function get_affiliate_wells_new( $the_affiliates ) {
-
-	foreach ( $the_affiliates as $this_affiliate) {
-	
-		//target class allows sidebar controls to show hide schools and departments
-		$target_class = ' filterz-target filterz-' . implode( ' filterz-' , array_keys( $this_affiliate[ 'schools' ] ) );
-		if ( count( $this_affiliate[ 'depts' ] ) ) $target_class .= ' filterz-' . implode( ' filterz-' , array_keys( $this_affiliate[ 'depts' ] ) );
-		
-		//sortablz data fields allow toggles to control order of affiliates
-		$sortablz_class = " data-last='" . $this_affiliate['last_name'] . "' ";
-		$sortablz_class .= ( !empty( $this_affiliate[ 'idies_title' ] ) ) ? " data-title='" . $this_affiliate['idies_title'] . "' " : "";
-		if ( count( $this_affiliate['schools'] ) ) {
-			$school_keys = array_keys( $this_affiliate['schools'] );
-			$sortablz_class .= " data-school='" . $this_affiliate[ 'schools' ][$school_keys[0]][ 'display_name' ] . "' ";
-		}
-		if ( count( $this_affiliate['depts'] ) ) {
-			$dept_keys = array_keys( $this_affiliate['depts'] );
-			$sortablz_class .= " data-dept='" . $this_affiliate[ 'depts' ][$dept_keys[0]][ 'display_name' ] . "' ";
-		}
-		$this_affiliate['well'] = get_affiliate_well( $this_affiliate , $target_class , $sortablz_class );
-		$new_affiliates[] = $this_affiliate;
-	}
-	
-	return $new_affiliates;
-}
-// 
-
-//Show the Affiliate Search Bar
-function show_affil_search( $options = array() , $this_option , $pane="people") {
 }
 
  /*
@@ -535,23 +440,3 @@ function idies_filter_affil( $the_affiliates , $filter , $is = true ){
 	}
 	return $result;
 }
-
-/*/
-// Show an affiliate in a formatted well.
-function show_affiliate_well( $this_affiliate , $affil_class = "" , $attributes = "") {
-	echo "<div class='$affil_class' $attributes>";
-	echo "<div class='col-lg-4 col-sm-6 col-xs-12'>";
-	echo "<div class='well'>";
-	echo "<p class='bigger'><strong><a href='" . home_url() . "/affiliates/" . $this_affiliate['post_title'] . "'>" . $this_affiliate['display_name'] . "</a></strong></p>";
-	if ( !empty( $this_affiliate['idies_title'] ) ) echo "<p>" . $this_affiliate['idies_title'] . "</strong></p>";
-	echo "<p>";
-	foreach( $this_affiliate[ 'depts' ] as $this_dept ) echo '<em>' . $this_dept['display_name'] . '</em><br />';
-	echo "</p>";
-	echo "<p>";
-	foreach( $this_affiliate[ 'schools' ] as $this_school ) echo '<strong>' . $this_school['display_name'] . '</strong><br />';
-	echo "</p>";
-	echo "</div>";
-	echo "</div>";
-	echo "</div>";
-}
-/*/
