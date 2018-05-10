@@ -7,6 +7,7 @@ while (have_posts()) : the_post();
 	the_content(); 
 endwhile; 
 
+/*/
 $execcomm = get_posts( array(
 		'posts_per_page'   	=> -1,
 		'orderby'          	=> 'meta_value',
@@ -18,6 +19,49 @@ $execcomm = get_posts( array(
 			'key'			=> 'executive-committee',
 			'value' 		=> 'Yes' ,
 		)
+	) );
+/*/
+$alexcomm = get_posts( array(
+		'posts_per_page'   	=> -1,
+		'orderby'          	=> 'meta_value',
+		'meta_key'			=> 'last-name',
+		'order'          	=> 'ASC',
+		'post_type'        	=> 'affiliate',
+		'post_status'      	=> 'publish',
+		'meta_query' => array(
+							'relation' => 'AND',
+							array(
+								'key'			=> 'executive-committee',
+								'value' 		=> 'Yes' ,
+								'compare'		=>	'='
+							),
+							array(
+								'key'			=> 'last-name',
+								'value' 		=> 'Szalay' ,
+								'compare'		=>	'='
+							),
+						),
+	) );
+$execcomm = get_posts( array(
+		'posts_per_page'   	=> -1,
+		'orderby'          	=> 'meta_value',
+		'meta_key'			=> 'last-name',
+		'order'          	=> 'ASC',
+		'post_type'        	=> 'affiliate',
+		'post_status'      	=> 'publish',
+		'meta_query' => array(
+							'relation' => 'AND',
+							array(
+								'key'			=> 'executive-committee',
+								'value' 		=> 'Yes' ,
+								'compare'		=>	'='
+							),
+							array(
+								'key'			=> 'last-name',
+								'value' 		=> 'Szalay' ,
+								'compare'		=>	'!='
+							),
+						),
 	) );
 	
 global $schools;
@@ -48,6 +92,11 @@ foreach( $tmp_depts as $this_dept ) $depts[$this_dept->ID] = $this_dept;
 	<div role="tabpanel" class="tab-pane">
 		<div class="row">
 <?php
+			foreach ( $alexcomm as $post ) : 
+				setup_postdata( $post );
+				get_template_part( 'templates/content-execcomm' );
+			endforeach; 
+			wp_reset_postdata();
 			foreach ( $execcomm as $post ) : 
 				setup_postdata( $post );
 				get_template_part( 'templates/content-execcomm' );
