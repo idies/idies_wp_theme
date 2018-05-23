@@ -1,4 +1,6 @@
 <?php
+get_template_part('templates/page', 'header-affiliated-centers'); 
+
 /* 
  * Show affiliated centers on the affiliates page. 
  */ 
@@ -23,7 +25,7 @@ $centers = get_posts( array(
 <div>
 	<!-- Nav tabs -->
 	<ul class="nav nav-tabs" >
-		<li role="presentation" ><a href="/affiliates/" class="h4">Affiliates</a></li>
+		<li role="presentation" ><a href="/affiliates/" class="h4">Faculty Members</a></li>
 		<li role="presentation" ><a href="/affiliates/execcomm/" class="h4">Executive Committee</a></li>
 		<li role="presentation" ><a href="/affiliates/staff/" class="h4">Staff</a></li>
 		<li role="presentation" class="active"><a href="/affiliates/affiliated-centers/" class="h4">Affiliated JHU Centers</a></li>

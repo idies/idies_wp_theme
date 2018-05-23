@@ -65,6 +65,6 @@ foreach (  get_cfc_meta( 'dept-center-affiliations' ) as $key => $value ) {
 <?php endwhile; ?>
 <ul class="breadcrumb">
 	<li><a href="<?php echo home_url(); ?>">IDIES</a></li>
-	<li><a href="<?php echo home_url();?>/affiliates/"> All Affiliates</a></li>
+	<li><a href="<?php echo home_url();?>/affiliates/"> Faculty Members</a></li>
 	<li><?php the_title(); ?></li>
 </ul>

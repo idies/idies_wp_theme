@@ -18,41 +18,13 @@ $all_schools = idies_get_schools( $all_affiliates );
 
 $people_affiliates = idies_filter_affil( $all_affiliates , "staff" , FALSE );
 
-/*/
-// DATA
-$affiliates = get_posts( array(
-		'posts_per_page'   	=> -1,
-		'orderby'          	=> 'meta_value',
-		'meta_key'			=> 'last-name',
-		'order'          	=> 'ASC',
-		'post_type'        	=> 'affiliate',
-		'post_status'      	=> 'publish',
-) );
-
-global $schools;
-$tmp_schools = get_posts( array(
-		'posts_per_page'   	=> -1,
-		'post_type'        	=> 'school-division',
-		'post_status'      	=> 'publish',
-	) );
-foreach( $tmp_schools as $this_school ) $schools[$this_school->ID] = $this_school;
-
-global $depts;
-$tmp_depts = get_posts( array		
-		'posts_per_page'   	=> -1,
-		'post_type'        	=> 'department',
-		'post_status'      	=> 'publish',
-	) );
-foreach( $tmp_depts as $this_dept ) $depts[$this_dept->ID] = $this_dept;
-/*/
-
 $i=1;
 
 ?>
 <div>
   <!-- Nav tabs -->
   <ul class="nav nav-tabs">
-    <li role="presentation" class="active"><a href="/affiliates/" class="h4">Affiliates</a></li>
+    <li role="presentation" class="active"><a href="/affiliates/" class="h4">Faculty Members</a></li>
     <li role="presentation"><a href="/affiliates/execcomm" class="h4">Executive Committee</a></li>
 	<li role="presentation"><a href="/affiliates/staff/" class="h4">Staff</a></li>
     <li role="presentation" ><a href="/affiliates/affiliated-centers" class="h4">Affiliated JHU Centers</a></li>
@@ -76,7 +48,7 @@ $i=1;
 				</div>
 				<!-- Show sidebar controls -->
 				<div class="col-sm-3 hidden-xs">
-					<div class="filterz-overview">Showing <span class="showing"></span> of <span class="total"></span> Affiliates</div>
+					<div class="filterz-overview">Showing <span class="showing"></span> of <span class="total"></span> Members</div>
 				</div>
 				<div class="col-sm-3 hidden-xs">
 					<div class="form-inline filterz-controls">
@@ -204,10 +176,14 @@ function idies_get_affiliates( $orderby = 'last'  ) {
 	$affiliate_args = array(
 		'posts_per_page'   => -1,
 		'offset'   		   => 0,
-		'orderby'          => 'title',
-		'order'            => 'ASC',
-		'post_type'        => 'affiliate',
-		'post_status'      => 'publish',
+		'meta_key'			=> 'last-name',
+		'order'          	=> 'ASC',
+		'post_type'        	=> 'affiliate',
+		'post_status'      	=> 'publish',
+		'meta_query' => array(
+			'key'			=> 'category',
+			'value' 		=> 'full' ,
+		)
 	);
 	if 	( !$affiliates_array = get_posts( $affiliate_args ) ) return $all_affiliate_info;
 

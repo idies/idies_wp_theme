@@ -8,8 +8,16 @@ get_template_part('templates/head');
 		get_template_part('templates/pre-header');
 	}
 	do_action('get_header' , 'header');
+	
+	// Special Header for Named Post
 	if ( !empty( $post->post_name ) && locate_template('templates/header-' . $post->post_name . '.php') != '') {
 		get_template_part('templates/header', $post->post_name);
+		
+	// Special Header for Post Type
+	} elseif ( !empty( $post->post_type ) && locate_template('templates/header-' . $post->post_type . '.php') != '') {
+		get_template_part('templates/header', $post->post_type);
+		
+	// Generic Header
 	} else {
 		get_template_part('templates/header');
 	}	
