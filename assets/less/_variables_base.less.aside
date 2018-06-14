@@ -5,13 +5,10 @@
  *-------------------------------------------------*
  */
 
-//@import "_font-awesome";
-
 /* ================================================
    Colors
    ================================================ */
-
-@brand-primary:         	#5189BC;					//set your primary color here
+@brand-primary:         	#5189BC;					
 @brand-success:         	spin(@brand-primary, -30);
 @brand-info:            	spin(@brand-primary, 30);
 @brand-danger:         		spin(@brand-primary, 150);
@@ -60,8 +57,6 @@
          url('../fonts/quark-light.ttf') format('truetype'),
          url('../fonts/quark-light.svg#QuarkLight') format('svg');
 }
-
-@fa-font-path:        "../vendor/font-awesome/fonts/";
 
 /* ================================================
    Layout

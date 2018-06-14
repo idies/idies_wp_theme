@@ -166,7 +166,7 @@ footer.pagefooter {
 		color: 				@gray-paler;
 		list-style-type:	none;
 		li:before {
-			content: 		"\f138 ";
+			content: 		"\f138 "; // fa-chevron-circle-right
 			font-family: 	FontAwesome;
 			margin-right: 	.5em;
 		}
@@ -652,14 +652,18 @@ body aside section.widget {
 				margin-bottom: .5em;
 				text-indent: -10px;
 			}
-			& >li:before { 
-				font-family: FontAwesome;
-				font-weight: normal;
-				font-size: 0.9em;
-				font-style: normal;
-				display: inline-block;
-				text-decoration: inherit;
-				content: "\f05a\00A0";
+			& >li {
+				//.fa-icon;
+				//.fa;
+				&:before { 
+					font-family: FontAwesome;
+					font-weight: normal;
+					font-size: 0.9em;
+					font-style: normal;
+					display: inline-block;
+					text-decoration: inherit;
+					content: "\f05a";	// fa-info-circle
+				}	
 			}	
 		}	
 	}
@@ -982,7 +986,8 @@ div.wells-group>div.row>div {
 .external-link>a:after, a.external-link:after {
 	font-family: 			FontAwesome;
 	font-size:				1.3333em;
-	content: 				' \f14c';
+	content: 				' \f360';	// fa-external-link-square-alt
+	//content: 				' \f14c';	// fa-external-link-square
 }
 li>img.idies-glyph {
     margin-left: -21px;
@@ -999,12 +1004,12 @@ body.page.research main.main #accordion {
 		font-family: 			FontAwesome;
 		font-size:				1.3333em;
 		color:					@brand-primary-dark;
-		content: 				'\f056 ';
+		content: 				'\f056 ';	// fa-minus-circle
 		padding-right:			10px;
 	}
 	a.article-toggle.collapsed:before , 
 	a[data-toggle="collapse"].collapsed:before 	{
-		content: 				'\f055 ';
+		content: 				'\f055 ';	// fa-plus-circle
 	}
 }
 
@@ -1110,7 +1115,8 @@ body.page.datasets main.main #carousel-public {
    ++++++++++++++++++++++++++++++++++++++++++++++++ */
 body.blog main.main article>header {
 	>time:before {
-		content: "\f073";
+		//content: "\f073";	// fa-calendar
+		content: "\f073";	// fa-calendar-alt
 		font-family: FontAwesome;
 		padding-right: 4px;
 		
@@ -1141,12 +1147,14 @@ li[data-toggle="drilldown"] {
 	padding-left: 10px;
     text-indent: -21px;	
 	&:before {
-		content: "\f046 ";
+		//content: "\f046 ";	// fa-check-square-o
+		content: "\f14a ";	// fa-check-square
 		font-family: FontAwesome;
 		margin-right: .5em;	
 	}
 	&.off:before {
-		content: "\f096 ";
+		//content: "\f096 ";	// fa-square-o
+		content: "\f14a ";	// fa-square
 		font-family: FontAwesome;
 		margin-right: .5em;	
 	}
