@@ -4,33 +4,15 @@
 @main-sm-columns:       @grid-columns;
 @sidebar-sm-columns:    4;
 
-// Brand colors
-// -------------------------
-
-@brand-primary:         #27ae60;
-
-
 // Glyphicons path
 // -------------------------
 @icon-font-path:        "../vendor/bootstrap/fonts/";
-
-@fa-font-path: "../webfonts/";
+@fa-font-path: 			"../webfonts/";
 
 /*!
  *-------------------------------------------------*
  * IDIES Brand Theme Customization
  *
- * These two files contain modifications for IDIES brand websites
- * There are two files: _variables_base and _variables_custom.
- * _variables_base contains variables common to all themes.
- * _variables_[sdss|idies|sciserver] constants 
- * overrides on these variables, and also add
- * unique variables for that theme.
- *-------------------------------------------------*
- */
-/*!
- *-------------------------------------------------*
- * IDIES Root Theme Customization
  * Base Variables
  *-------------------------------------------------*
  */
@@ -372,34 +354,6 @@ footer.pagefooter {
 }
 
 /* ================================================
-   DropDown 
-   ================================================ */
-
-/* ================================================
-   Buttons
-   ================================================ */
-
-/* ================================================
-   Tables
-   ================================================ */
-
-/* ================================================
-   Content Sections
-   ================================================ */
-
-/* ++++++++++++++++++++++++++++++++++++++++++++++++
-   intro
-   ++++++++++++++++++++++++++++++++++++++++++++++++ */
-
-/* ++++++++++++++++++++++++++++++++++++++++++++++++
-   sidebar
-   ++++++++++++++++++++++++++++++++++++++++++++++++ */
-
-/* ================================================
-   WordPress Overrides
-   ================================================ */
-
-/* ================================================
    Media
    ================================================ */
 
@@ -431,10 +385,8 @@ footer.pagefooter {
 @media (max-width: @screen-md-max) {
 }
 
-
 /*!
  *-------------------------------------------------*
- * IDIES Brand Theme Customization
  * Custom Variables
  *-------------------------------------------------*
  */
@@ -601,7 +553,7 @@ footer.pagefooter {
 		list-style-type:	none;
 		li:before {
 			content: 		"\f138 "; // fa-chevron-circle-right
-			font-family: 	FontAwesome;
+			font-family: 	"Font Awesome 5 Pro";
 			margin-right: 	.5em;
 		}
 	}
@@ -1087,16 +1039,12 @@ body aside section.widget {
 				text-indent: -10px;
 			}
 			& >li {
-				//.fa-icon;
-				//.fa;
 				&:before { 
-					font-family: FontAwesome;
-					font-weight: normal;
+					font-family: "Font Awesome 5 Pro";
 					font-size: 0.9em;
-					font-style: normal;
 					display: inline-block;
-					text-decoration: inherit;
-					content: "\f05a";	// fa-info-circle
+					text-decoration:inherit;
+					content: "\f1ea";	// far fa-newspaper
 				}	
 			}	
 		}	
@@ -1144,10 +1092,6 @@ body main.main {
 		}
 	}
 }
-
-/* ================================================
-   Archive
-   ================================================ */
 
 /* ================================================
    Login Menu (from WCK)
@@ -1418,7 +1362,7 @@ div.wells-group>div.row>div {
    Extras
    ================================================ */
 .external-link>a:after, a.external-link:after {
-	font-family: 			FontAwesome;
+	font-family: 			"Font Awesome 5 Pro";
 	font-size:				1.3333em;
 	content: 				' \f360';	// fa-external-link-square-alt
 	//content: 				' \f14c';	// fa-external-link-square
@@ -1435,7 +1379,7 @@ body.page.research main.main #accordion {
 	a.article-toggle:before,
 	a[data-toggle="collapse"]:before
 	{
-		font-family: 			FontAwesome;
+		font-family: 			"Font Awesome 5 Pro";
 		font-size:				1.3333em;
 		color:					@brand-primary-dark;
 		content: 				'\f056 ';	// fa-minus-circle
@@ -1457,8 +1401,7 @@ body.page.research main.main #accordion {
 body.page.affiliates {
 	div.tab-pane {
 		margin-top:20px;
-	}
-	
+	}	
 }
 
 body.page.research main.main #accordion {
@@ -1551,25 +1494,14 @@ body.blog main.main article>header {
 	>time:before {
 		//content: "\f073";	// fa-calendar
 		content: "\f073";	// fa-calendar-alt
-		font-family: FontAwesome;
+		font-family: "Font Awesome 5 Pro";
 		padding-right: 4px;
 		
 	}
 }
-   /* ================================================
-   Content Sections
-   ================================================ */
-
-/* ++++++++++++++++++++++++++++++++++++++++++++++++
-   intro
-   ++++++++++++++++++++++++++++++++++++++++++++++++ */
-
-/* ++++++++++++++++++++++++++++++++++++++++++++++++
-   sidebar
-   ++++++++++++++++++++++++++++++++++++++++++++++++ */
-
+   
 /* ================================================
-   WordPress Overrides
+   Content Sections
    ================================================ */
 
 /* ================================================
@@ -1583,13 +1515,13 @@ li[data-toggle="drilldown"] {
 	&:before {
 		//content: "\f046 ";	// fa-check-square-o
 		content: "\f14a ";	// fa-check-square
-		font-family: FontAwesome;
+		font-family: "Font Awesome 5 Pro";
 		margin-right: .5em;	
 	}
 	&.off:before {
 		//content: "\f096 ";	// fa-square-o
 		content: "\f14a ";	// fa-square
-		font-family: FontAwesome;
+		font-family: "Font Awesome 5 Pro";
 		margin-right: .5em;	
 	}
 	&.off{
