@@ -171,6 +171,9 @@ function idies_adjust_offset_pagination( $found_posts , $query ) {
 /**
  * IDIES initial setup and constants
  */
+define('UPLOADSDIR','/data1/dswww-ln01/idies.jhu.edu/uploads/');
+define('UPLOADSURL','http://idies.jhu.edu/uploads/');
+
 define('FOOTER_WIDGETS',4);
 define('SPLASH_WIDGETS',5);
 
@@ -373,3 +376,11 @@ function idies_cpt_search( $query ) {
     }
     return $query;   
 }
+
+/**
+ * Send wordpress emails as HTML
+ */
+function idies_set_content_type(){
+    return "text/html";
+}
+add_filter( 'wp_mail_content_type','idies_set_content_type' );
