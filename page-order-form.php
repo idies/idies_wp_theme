@@ -1,5 +1,5 @@
 <?php 
-$debug = true;
+$debug = false;
 global $post;
 get_template_part('templates/page', 'header');
 
@@ -11,35 +11,36 @@ if ($debug){
 }
 $email_subject = "IDIES Order Received";
 $email_message = "<dl class='dl dl-horizontal'>";
-$successMessage = "<div class='alert alert-success'>Order submission successful.</div><br>\n";
+$successMessage = "<div class='alert alert-success'>Your request has been submitted.</div><br>\n";
 
 // possible form fields
 $keylabels = array(
-"fullname"=>"Requestor:",
-"priority"=>"Priority:",
-"ordertype"=>"Order Type:",
-"chargeaccount"=>"Account to Charge:",
-"tagnumber"=>"Tag Number:",
-"vendor"=>"Vendor:",
-"quoterequired"=>"Quote required?:",
-"uploadquote"=>"Uploaded Quote:",
-"quotetype"=>"Quote Type:",
-"reason"=>"Reason for purchase:",
-"purchaseapproved"=>"Purchase approved:",
-"uploadapproval"=>"Uploaded purchase approval:",
+	"fullname"=>"Requestor:",
+	"priority"=>"Priority:",
+	"ordertype"=>"Order Type:",
+	"chargeaccount"=>"Account to Charge:",
+	"tagnumber"=>"Tag Number:",
+	"vendor"=>"Vendor:",
+	"quoterequired"=>"Quote required?:",
+	"quotetype"=>"Quote Type:",
+	"reason"=>"Reason for purchase:",
+	"purchaseapproved"=>"Purchase approved:",
 );
-$keys = array_keys($keylabels);
-
-// Empty arrays to populate
-$request = array();
+$knownkeys = array_keys($keylabels);
+$uploadlabels = array(
+	"Uploaded quote:",
+	"Uploaded approval:",
+);
 
 if ( ( $_REQUEST ) 
 	&& ( !empty($_REQUEST[ "action" ]) )
 	&& ( $_REQUEST[ "action" ] == 'submit' ) ) {
 	
-	// populate request array with recognized key-value pair
-	foreach ($keys as $this_key){
-		if (array_key_exists($this_key , $_REQUEST)){
+	
+	// populate request array with known key-value pair
+	$request = array();
+	foreach ($knownkeys as $this_key){
+		if (array_key_exists( $this_key , $_REQUEST ) ) {
 			$request[ $this_key ] = $_REQUEST[ $this_key ];
 			$email_message .= "<dt>" . $keylabels[ $this_key] . "</dt><dd>" . $_REQUEST[ $this_key] . "</dd>\n";
 		}
@@ -48,11 +49,11 @@ if ( ( $_REQUEST )
 	
 	// check uploads are good and add links to email message
 	if ( !empty( $_FILES ) ) {
-		$email_message .= appendUpload( "orderupload" );
+		$email_message .= appendUpload( "orderupload" , $uploadlabels );
 	}
 	
 	// Send IDIES Order Request email
-	if ( !wp_mail( $email_to , $email_subject , $email_message )) {
+	if ( !wp_mail( $email_to , $email_subject , $email_message ) ) {
 		echo "<div class='alert alert-danger'>Failed to send order email.</div>";
 		echo "Email failed to $email_to.<br>\n";
 		echo $email_message;
@@ -67,33 +68,37 @@ get_template_part('templates/content', 'page');
 /*/
 FUNCTIONS
 /*/
-function appendUpload( $thisfile = "orderupload" ){
+function appendUpload( $thisfile , $uploadlabels ){
 	
 	/// message that goes in the email about uploaded files
-	$timestamp = microtime ( true );
 	$result = "";
 	
-	//$result .= "<pre>" . var_export( $_FILES , true ) . "</pre>";
-	$result .= "<pre>" . var_export( $_FILES[$thisfile] , true ) . "</pre>";
-	
 	// If there are uploads, loop through the uploads, check each exists and has content
-	if ( !empty( $_Files[ $thisfile ] ) ) {
-		foreach ( $thisupload as $_Files[ $thisfile] ){
-			if ( $thisupload['size'] > 0 ) {
-				if ( $thisupload["error"] > 0 ) {
-					$result .= "Error uploading ". $keylabels[$thisupload] . ": " . var_export($_FILES[$thisfile],true) . "<br />";
+	if ( !empty( $_FILES ) && !empty( $_FILES[ $thisfile ] ) ) {
+		
+		$orderupload = $_FILES[ $thisfile ];
+		for ( $indx = 0; $indx < count( $orderupload[ 'name' ] ); $indx++ ){
+			
+			if ( $orderupload['size'][ $indx ] > 0 ) {
+				
+				// Deal with errors
+				if ( $orderupload["error"][ $indx ] > 0 ) {
+					$result .= "Error uploading ". $orderupload[ 'name' ][ $indx ] . "<br />";
+					
+				// If successful, rename it, save it, and return its link.
 				} else {
+					
 					// Give it a unique name by inserting a timestamp between the basename and suffix.
-					// Move it to the uploads folder and append the file's URL to the email message.
-					$suffix = pathinfo ( basename( $thisupload['name'] ) , PATHINFO_EXTENSION );				
-					$basename = basename( $thisupload[ 'name' ] , $suffix );
-					$uploadfile = UPLOADSDIR . $basename . $timestamp . "." . $suffix;
-					if ( move_uploaded_file( $thisupload[ 'tmp_name' ], $uploadfile ) ) {
+					$timestamp = microtime ( true );
+					$suffix = pathinfo ( basename( $orderupload['name'][ $indx ] ) , PATHINFO_EXTENSION );
+					$basename = basename( $orderupload[ 'name' ][ $indx ] , $suffix );
+					$uploadfile = UPLOADSDIR . $basename . "." . $timestamp . "." . $suffix;
+
+					if ( move_uploaded_file( $orderupload[ 'tmp_name' ][ $indx ], $uploadfile ) ) {
 						$uploadlink = UPLOADSURL . $basename . $timestamp . "." . $suffix;
-						$result .= "Quote: <a href='$uploadlink'>$uploadlink</a>. <br>\n";
+						$result .= $uploadlabels[ $indx ] . ": <a href='$uploadlink'>$uploadlink</a>. <br>\n";
 					} else {
-						$result .= "Error moving $uploadfile. <br>\n";
-						$result .= "<pre>" . var_export( $_FILES , true ) . "</pre>";
+						$result .= "<div class='alert alert-danger'>Error moving $uploadfile to $uploadlink.<div>\n";
 					}
 				}
 			}
@@ -101,7 +106,6 @@ function appendUpload( $thisfile = "orderupload" ){
 	}
 	return $result;
 }
-
 
 /*/
 BEGIN FORM HTML
