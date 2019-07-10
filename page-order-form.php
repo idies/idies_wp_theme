@@ -1,42 +1,42 @@
 <?php 
-$debug = false;
 global $post;
 get_template_part('templates/page', 'header');
-
-// VARS
-if ($debug){
-	$email_to = "bsouter@jhu.edu";
-} else {
-	$email_to = "hentgen@jhu.edu";
-}
-$email_subject = "IDIES Order Received";
-$email_message = "<dl class='dl dl-horizontal'>";
-$successMessage = "<div class='alert alert-success'>Your request has been submitted.</div><br>\n";
-
-// possible form fields
-$keylabels = array(
-	"fullname"=>"Requestor:",
-	"priority"=>"Priority:",
-	"ordertype"=>"Order Type:",
-	"chargeaccount"=>"Account to Charge:",
-	"tagnumber"=>"Tag Number:",
-	"vendor"=>"Vendor:",
-	"quoterequired"=>"Quote required?:",
-	"quotetype"=>"Quote Type:",
-	"reason"=>"Reason for purchase:",
-	"purchaseapproved"=>"Purchase approved:",
-);
-$knownkeys = array_keys($keylabels);
-$uploadlabels = array(
-	"Uploaded quote:",
-	"Uploaded approval:",
-);
 
 if ( ( $_REQUEST ) 
 	&& ( !empty($_REQUEST[ "action" ]) )
 	&& ( $_REQUEST[ "action" ] == 'submit' ) ) {
+		
+	$debug = false;
 	
-	
+	// VARS
+	if ($debug){
+		$email_to = "bsouter@jhu.edu";
+	} else {
+		$email_to = "hentgen@jhu.edu";
+	}
+	$email_subject = "IDIES Order Received";
+	$email_message = "<dl class='dl dl-horizontal'>";
+	$successMessage = "<div class='alert alert-success'>Your request has been submitted.</div><br>\n";
+
+	// possible form fields
+	$keylabels = array(
+		"fullname"=>"Requestor:",
+		"priority"=>"Priority:",
+		"ordertype"=>"Order Type:",
+		"chargeaccount"=>"Account to Charge:",
+		"tagnumber"=>"Tag Number:",
+		"vendor"=>"Vendor:",
+		"quoterequired"=>"Quote required?:",
+		"quotetype"=>"Quote Type:",
+		"reason"=>"Reason for purchase:",
+		"purchaseapproved"=>"Purchase approved:",
+	);
+	$knownkeys = array_keys($keylabels);
+	$uploadlabels = array(
+		"Uploaded quote:",
+		"Uploaded approval:",
+	);
+
 	// populate request array with known key-value pair
 	$request = array();
 	foreach ($knownkeys as $this_key){
@@ -61,6 +61,9 @@ if ( ( $_REQUEST )
 		echo $successMessage;
 		echo $email_message;
 	}
+	
+	echo "<h2>Submit another purchase request</h2>\n";
+
 }
 
 get_template_part('templates/content', 'page'); 
