@@ -2376,7 +2376,7 @@ var Roots = {
       // JavaScript to be fired on the about us page
     }
   },
-  // IDIES Orders page, note the change from about-us to about_us.
+  // IDIES Orders page, note the change from about-us to about_us and idies-orders to idies_orders.
   idies_orders: {
     init: function() {
 	  // JavaScript to be fired on the idies orders page
@@ -2392,7 +2392,36 @@ var Roots = {
 	  var approvecheckid = '#' + $( $( '.approved' )[ 0 ]).prop( 'id' );
 	  $( '#' + $( $( '.approveemail-wrapper' )[ 0 ]).prop( 'id' ) ).hide();
 	  $(approvecheckid).on('change' , function() { $( $( '.approveemail-wrapper' )[ 0 ]).toggle(); } );
-	  	  
+	  }
+  },
+  // IDIES Orders page
+  order_form: {
+    init: function() {
+		// JavaScript to be fired on the IDIES order form page
+		var context = 'form#idies-orders';
+		$("#quoterequired",context).on('change' , function() { 
+			if ( $("#quoterequired",context).prop("checked") ) {
+				$('#uploadquote',context).prop("required",true);
+				$("input[name='quotetype']",context).each( function() { 
+					$(this).prop("required",true);
+				});
+			} 
+			else {
+				$('#uploadquote',context).prop("required",false);
+				$("input[name='quotetype']",context).each( function() { 
+					$(this).prop("required",false);
+				});
+			}
+		} );
+		$("#purchaseapproved",context).on('change' , function() { 
+			if ( $("#purchaseapproved",context).prop("checked") ) {
+				$('#uploadapproval',context).prop("required",true);
+			} 
+			else {
+				$('#uploadapproval',context).prop("required",false);
+			}
+		} );
+>>>>>>> 58acc31e2cb1f0c75d49a1f400623aa063b85219
 	}
   }
 };

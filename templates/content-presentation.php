@@ -5,7 +5,7 @@
  */ 
 ?>
 <?php //Get Query vars from URL 
-$thisYear = get_query_var( 'idies-year' , 2016 );
+$thisYear = get_query_var( 'idies-year' , 2018 );
 $thisType = get_query_var( 'idies-type' , 'agenda' );
 ?>
 <?php 	
