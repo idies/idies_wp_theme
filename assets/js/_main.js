@@ -36,6 +36,25 @@ var Roots = {
     init: function() {
       // JavaScript to be fired on the about us page
     }
+  },
+  // IDIES Orders page, note the change from about-us to about_us.
+  idies_orders: {
+    init: function() {
+	  // JavaScript to be fired on the idies orders page
+
+	  // Toggle the quote fields when Quote checkbox is checked
+	  var quotecheckid = '#' + $( $( '.quoterequired' )[ 0 ]).prop( 'id' );
+	  $( '#' + $( $( '.quoteattach-wrapper' )[ 0 ]).prop( 'id' ) ).hide();
+	  $( '#' + $( $(' .quotetype-wrapper ')[ 0 ]).prop( 'id' ) ).hide();
+	  $(quotecheckid).on('change' , function() { $( $( '.quoteattach-wrapper' )[ 0 ]).toggle(); } );
+	  $(quotecheckid).on('change' , function() { $( $(' .quotetype-wrapper ')[ 0 ]).toggle(); } );
+	  	  
+	  // Toggle the quote fields when Quote checkbox is checked
+	  var approvecheckid = '#' + $( $( '.approved' )[ 0 ]).prop( 'id' );
+	  $( '#' + $( $( '.approveemail-wrapper' )[ 0 ]).prop( 'id' ) ).hide();
+	  $(quotecheckid).on('change' , function() { $( $( '.approveemail-wrapper' )[ 0 ]).toggle(); } );
+	  	  
+	}
   }
 };
 
@@ -58,6 +77,7 @@ var UTIL = {
   }
 };
 
-$(document).ready(UTIL.loadEvents);
+//$(document).ready(UTIL.loadEvents);
+$( window ).load( UTIL.loadEvents );
 
 })(jQuery); // Fully reference jQuery after this point.
