@@ -2421,7 +2421,6 @@ var Roots = {
 				$('#uploadapproval',context).prop("required",false);
 			}
 		} );
->>>>>>> 58acc31e2cb1f0c75d49a1f400623aa063b85219
 	}
   }
 };
